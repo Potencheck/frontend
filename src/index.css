@@ -20,22 +20,28 @@
   --color-background-field: #f8f9fc;
   --color-dropdown: #f8f8f8;
   --color-input: #2e7cf6;
+  --color-warning: #f44141;
 }
 
 :root {
   display: flex;
   justify-content: center;
-}
-
-body {
-  margin: 0px 20px;
-  display: flex;
-  max-width: 375px;
-  min-height: 100vh;
+  background-color: #f1f1f1;
   font-family: 'Pretendard Variable', Pretendard, -apple-system,
     BlinkMacSystemFont, system-ui, Roboto, 'Helvetica Neue', 'Segoe UI',
     'Apple SD Gothic Neo', 'Noto Sans KR', 'Malgun Gothic', 'Apple Color Emoji',
     'Segoe UI Emoji', 'Segoe UI Symbol', sans-serif;
+  overflow-x: hidden;
+}
+
+body {
+  position: relative;
+  padding: 0px 20px;
+  width: 100%;
+  display: flex;
+  max-width: 375px;
+  min-height: 100vh;
+  background: #ffffff;
   font-synthesis: none;
 }
 
