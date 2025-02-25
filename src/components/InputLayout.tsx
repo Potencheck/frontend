@@ -7,8 +7,8 @@ type InputLayOutProps = {
 };
 const InputLayout = ({ title, children, isEssential }: InputLayOutProps) => {
   return (
-    <div className="w-full">
-      <div className="w-full flex items-center justify-start subtle2-medium text-text-secondary py-3">
+    <div className="w-full py-3 flex flex-col gap-2">
+      <div className="w-full flex items-center justify-start subtle2-medium text-text-secondary">
         <div className="relative">
           {title}
           {isEssential && (

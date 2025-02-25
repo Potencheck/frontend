@@ -23,7 +23,7 @@ export const DropdownModal = ({
   onSelect,
 }: DropdownModalProps) => {
   return (
-    <div className="w-full relative shadow-[0px_4px_12px_rgba(0,0,0,0.1)] rounded-lg bg-white border border-border-line flex flex-row items-start justify-start p-2 text-left body-2 text-text-primary z-10">
+    <div className="w-full relative shadow-[0px_4px_12px_rgba(0,0,0,0.1)] rounded-lg bg-white border border-border-line flex flex-row items-start justify-start p-2 text-left body2-medium text-text-primary z-10">
       <div className="flex-1 flex flex-col items-start justify-start gap-[5px]">
         {/* 각 옵션을 매핑하여 표시합니다. */}
         {options.map((option) => (
@@ -72,7 +72,7 @@ const Dropdown = ({
       )}
       {/* 드롭다운 입력 영역 */}
       <div className="w-full flex flex-col gap-1">
-        <div className="w-full relative rounded-lg bg-white border border-border-line box-border h-11 flex flex-row items-center justify-center px-4 py-2.5 pl-4 text-left body-2 text-[#656565]">
+        <div className="w-full relative rounded-lg bg-white border border-border-line box-border h-11 flex flex-row items-center justify-center px-4 py-2.5 pl-4 text-left subtle2-regular text-[#656565]">
           <div className="flex-1 h-5 flex flex-row items-center justify-between">
             <input
               className="w-full relative leading-5 outline-none bg-white"

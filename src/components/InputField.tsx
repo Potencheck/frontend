@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { ChangeEvent, useState } from 'react';
 
 const INPUT_STATUS = {
   DISABLED: 'DISABLED',
@@ -47,7 +47,7 @@ const InputField = ({
 
   // 입력값 변경 핸들러
   const handleInputChange = (
-    e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>,
+    e: ChangeEvent<HTMLInputElement | HTMLTextAreaElement>,
   ) => {
     onChange(e.target.value);
     if (!!textLimit && e.target.value.length > textLimit) {

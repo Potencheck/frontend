@@ -25,6 +25,7 @@
 
 :root {
   display: flex;
+  width: 100%;
   justify-content: center;
   background-color: #f1f1f1;
   font-family: 'Pretendard Variable', Pretendard, -apple-system,
@@ -36,13 +37,16 @@
 
 body {
   position: relative;
-  padding: 0px 20px;
   width: 100%;
   display: flex;
-  max-width: 375px;
+  max-width: 450px;
   min-height: 100vh;
   background: #ffffff;
   font-synthesis: none;
+}
+
+#root {
+  width: 100%;
 }
 
 @layer components {
