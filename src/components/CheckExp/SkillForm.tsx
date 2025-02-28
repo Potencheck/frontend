@@ -47,6 +47,7 @@ export const SkillForm = ({ onBack, editItem }: SkillFormProps) => {
     } else {
       addItem('skill', formData);
     }
+    setFormData(formData); // TODO : skills 쪽 타입 변경과 함께 변경 요망
     onBack();
   };
 
