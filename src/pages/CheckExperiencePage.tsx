@@ -79,7 +79,7 @@ const CheckExperiencePage = () => {
   }
   return (
     <>
-      <div className="w-full h-screen bg-background-screen absolute inset-0 px-5 flex flex-col items-center justify-center">
+      <div className="w-full h-screen bg-background-screen absolute inset-0 px-5 flex flex-col items-center">
         <div className="w-full overflow-x-scroll no-scrollbar::-webkit-scrollbar no-scrollbar [&>*:last-child]:mb-20">
           <PageTitle
             onGoBack={() => navigate(-1)}
