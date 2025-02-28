@@ -5,6 +5,8 @@ import NameStep from '@/components/Onboard/NameStep';
 import { UserInfoProvider } from '@/hooks/useUserInfo';
 import { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
+import CheckExperiencePage from './CheckExperiencePage';
+import { ResumeProvider } from '@/hooks/useExperience';
 
 const enum FunnelStep {
   NAME = 1,
@@ -53,6 +55,12 @@ const OnboardingPage = () => {
         );
       case FunnelStep.LINK:
         return <LinkStep onBack={handleOnGoBack} onNext={handleOnNext} />;
+      case FunnelStep.CHECK:
+        return (
+          <ResumeProvider>
+            <CheckExperiencePage />
+          </ResumeProvider>
+        );
       default:
         return <NameStep onBack={handleOnGoBack} onNext={handleOnNext} />;
     }
