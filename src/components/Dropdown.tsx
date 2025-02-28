@@ -26,13 +26,13 @@ export const DropdownModal = ({
     <div className="w-full relative shadow-[0px_4px_12px_rgba(0,0,0,0.1)] rounded-lg bg-white border border-border-line flex flex-row items-start justify-start p-2 text-left body2-medium text-text-primary z-10">
       <div className="flex-1 flex flex-col items-start justify-start gap-[5px]">
         {/* 각 옵션을 매핑하여 표시합니다. */}
-        {options.map((option) => (
+        {options.map((option, idx) => (
           <div
             className={`self-stretch overflow-hidden ${
               value == option && 'bg-dropdown text-text-primary'
             } rounded-lg flex flex-row items-center justify-start p-2.5`}
             onClick={() => onSelect(option)}
-            key={option}
+            key={idx}
           >
             {option}
           </div>
