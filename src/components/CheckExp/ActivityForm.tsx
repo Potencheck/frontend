@@ -52,7 +52,7 @@ export const ActivityForm = ({ onBack, editItem }: ActivityFormProps) => {
             textLimit={20}
           />
         </InputLayout>
-        <InputLayout title="경험 세부 설명" isEssential>
+        <InputLayout title="경험 세부 설명">
           <InputField
             placeholder="ex) 유저 인터뷰를 통한 개선점 도출 및 가설 검증을 위한 A/B 테스트 진행"
             value={formData.description || ''}
