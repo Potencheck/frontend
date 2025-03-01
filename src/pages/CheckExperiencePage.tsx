@@ -137,7 +137,7 @@ const CheckExperiencePage = () => {
         <BottomButtonPanel>
           <Button
             type={isValid ? buttonTypeKeys.ACTIVE : buttonTypeKeys.DISABLED}
-            title="다음"
+            title="완료"
             onClick={isValid ? handleNext : undefined}
           />
         </BottomButtonPanel>

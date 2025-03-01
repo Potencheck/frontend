@@ -20,7 +20,7 @@ const enum FunnelStep {
 }
 const OnboardingPage = () => {
   const navigate = useNavigate();
-  const [currentStep, setCurrentStep] = useState<FunnelStep>(FunnelStep.CHECK);
+  const [currentStep, setCurrentStep] = useState<FunnelStep>(FunnelStep.NAME);
   const { userInfo, analyzeUserResume } = useUserInfo();
   const handleOnGoBack = () => {
     if (currentStep === FunnelStep.NAME) navigate('/');

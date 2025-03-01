@@ -21,6 +21,16 @@ const JobStep = ({ onBack, onNext }: JobStepProps) => {
     JobCategory.MARKETER,
   ];
 
+  const jobWorkCategory = {
+    [JobCategory.DEVELOPER]: ['프론트엔드', '백엔드·서버', '데이터', 'AI·ML'],
+    [JobCategory.DESIGNER]: [
+      '프로덕트 디자이너',
+      '콘텐츠 디자이너',
+      '그래픽 디자이너',
+    ],
+    [JobCategory.MARKETER]: ['서비스 기획자', 'PM·PO'],
+  };
+
   // 유효성 검사
   useEffect(() => {
     setIsValid(!!userInfo.jobCategory && !!userInfo.jobPosition);
@@ -53,7 +63,11 @@ const JobStep = ({ onBack, onNext }: JobStepProps) => {
         <Dropdown
           value={userInfo.jobPosition}
           placeholder="직무를 선택해 주세요"
-          options={jobCategory}
+          options={
+            userInfo.jobCategory
+              ? jobWorkCategory[userInfo.jobCategory] ?? []
+              : []
+          }
           setValue={(value) =>
             updateUserInfo('jobPosition', value as JobPosition)
           }
