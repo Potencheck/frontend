@@ -26,7 +26,7 @@ function createInstanceWithoutAuth() {
  */
 export const api = createInstanceWithoutAuth();
 
-// 폴더 생성
+// 이력서 추출
 export async function postResume(
   resumeData: File,
 ): Promise<ResumePostResponse> {

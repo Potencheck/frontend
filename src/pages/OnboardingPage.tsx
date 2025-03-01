@@ -69,7 +69,6 @@ const OnboardingPage = () => {
             subtitle={`직무 역량을 분석하기 위한\n경력, 직무 활동, 자격증 및 스킬을 추출하고 있어요`}
             onLoadingComplete={handleOnNext}
             animationData={animationData}
-            isAnalyze
           />
         );
       case FunnelStep.CHECK:

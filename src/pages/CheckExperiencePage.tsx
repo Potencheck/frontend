@@ -27,7 +27,7 @@ const CheckExperiencePage = () => {
   const [currentView, setCurrentView] = useState<ViewType>('main');
   const [editItemId, setEditItemId] = useState<string | null>(null);
   const [isModal, setIsModal] = useState(false);
-  const [isLoading, setIsLoading] = useState(true);
+  const [isLoading, setIsLoading] = useState(false);
   const isValid = experience.length || activities.length || skills.length;
 
   // 현재 편집 중인 항목 찾기
