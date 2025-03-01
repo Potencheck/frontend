@@ -1,10 +1,11 @@
-import ItemCard, { ItemCardProps } from '@/components/CheckExp/ItemCard';
+import ItemCard from '@/components/CheckExp/ItemCard';
 import AddIcon from '@/assets/icons/icon_plus.svg?react';
+import { ItemData } from '@/types/experience';
 
 type CategoryCardProps = {
   title: string;
   icon: React.ReactNode;
-  items: ItemCardProps[];
+  items: ItemData[];
   onAddClick: () => void;
   emptyState?: boolean;
 };
@@ -17,7 +18,6 @@ const CategoryCard = ({
   onAddClick,
   emptyState = true,
 }: CategoryCardProps) => {
-  
   return (
     <div className="w-full bg-white rounded-xl shadow-sm p-4 mb-4">
       {/* 카테고리 제목 */}
@@ -52,7 +52,10 @@ const CategoryCard = ({
             onClick={onAddClick}
             className="w-full border border-border-line rounded-lg py-3 flex items-center justify-center text-text-primary"
           >
-            <span className="text-xl mr-1"><AddIcon /></span> 추가하기
+            <span className="text-xl mr-1">
+              <AddIcon />
+            </span>{' '}
+            추가하기
           </button>
         </div>
       )}
