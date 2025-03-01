@@ -63,7 +63,7 @@ const CategoryCard = ({
           >
             <span className="text-xl mr-1">
               <AddIcon />
-            </span>{' '}
+            </span>
             추가하기
           </button>
         </div>

@@ -116,6 +116,7 @@ const CheckExperiencePage = () => {
             category="skill"
             items={skills}
             onAddClick={handleAddSkill}
+            onEditClick={handleEditItem}
           />
         </div>
 

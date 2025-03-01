@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import PageTitle from '@/components/PageTitle';
 import InputLayout from '@/components/InputLayout';
 import InputField from '@/components/InputField';
@@ -16,21 +16,25 @@ type SkillFormProps = {
   editItem?: ItemData;
 };
 
-export const SkillForm = ({ onBack, editItem }: SkillFormProps) => {
-  const { addItem, updateItem } = useResume();
-  const [formData, setFormData] = useState<ItemData>(
-    editItem || {
-      id: Date.now().toString(),
-      name: '',
-    },
-  );
+export const SkillForm = ({ onBack }: SkillFormProps) => {
+  const { skills, deleteItem, addItem } = useResume();
+
   const [certSearchInput, setCertSearchInput] = useState('');
   const searchResults = [`"${certSearchInput}" 으로 등록하기`].concat(
     searchCertificates(certSearchInput),
   );
 
-  const isValid = formData.name !== '' && formData.subtitle !== '';
   const [selectedCertList, setSelectedCertList] = useState<string[]>([]);
+  const isValid = selectedCertList.length > 0;
+
+  // 기존 스킬 목록을 초기값으로 설정
+  useEffect(() => {
+    // skills 배열에서 title 속성을 추출하여 선택된 스킬 목록 초기화
+    const existingSkills = skills
+      .map((skill) => skill.name || '')
+      .filter(Boolean);
+    setSelectedCertList(existingSkills);
+  }, [skills]);
 
   const handleCertSelect = (cert: string) => {
     // "으로 등록하기" 옵션을 선택했을 때 원래 입력값 사용
@@ -43,12 +47,22 @@ export const SkillForm = ({ onBack, editItem }: SkillFormProps) => {
   };
 
   const handleSubmit = () => {
-    if (editItem && editItem.id) {
-      updateItem('skill', editItem.id, formData);
-    } else {
-      addItem('skill', formData);
-    }
-    setFormData(formData); // TODO : skills 쪽 타입 변경과 함께 변경 요망
+    // 기존 스킬 목록을 모두 삭제
+    skills.forEach((skill) => {
+      if (skill.id) {
+        deleteItem('skill', skill.id);
+      }
+    });
+
+    // 새로운 스킬 목록 추가
+    selectedCertList.forEach((skillName) => {
+      addItem('skill', {
+        id: Date.now().toString() + Math.random().toString(36).substr(2, 9),
+        name: skillName,
+        description: '',
+      });
+    });
+
     onBack();
   };
 
