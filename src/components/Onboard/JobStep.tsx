@@ -1,4 +1,4 @@
-import { JobCategory, JobPosition, useUserInfo } from '@/hooks/useUserInfo';
+import { JobCategory, useUserInfo } from '@/hooks/useUserInfo';
 import { useEffect, useState } from 'react';
 import BottomButtonPanel from '../BottomButtonPanel';
 import Button from '../Button';
@@ -30,6 +30,7 @@ const JobStep = ({ onBack, onNext }: JobStepProps) => {
     ],
     [JobCategory.MARKETER]: ['서비스 기획자', 'PM·PO'],
   };
+  const expOption = ['신입 (1년 미만)', '경력 (1년 이상)'];
 
   // 유효성 검사
   useEffect(() => {
@@ -68,9 +69,15 @@ const JobStep = ({ onBack, onNext }: JobStepProps) => {
               ? jobWorkCategory[userInfo.jobCategory] ?? []
               : []
           }
-          setValue={(value) =>
-            updateUserInfo('jobPosition', value as JobPosition)
-          }
+          setValue={(value) => updateUserInfo('jobPosition', value)}
+        />
+      </InputLayout>
+      <InputLayout title="경력">
+        <Dropdown
+          value={userInfo.exp}
+          placeholder="경력을 선택해 주세요"
+          options={expOption}
+          setValue={(value) => updateUserInfo('exp', value)}
         />
       </InputLayout>
       <BottomButtonPanel>
