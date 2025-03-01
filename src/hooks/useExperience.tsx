@@ -1,5 +1,6 @@
 import { createContext, useContext, useState, ReactNode } from 'react';
 import { ItemData, CategoryType } from '@/types/experience';
+import { useUserInfo } from './useUserInfo';
 
 type ResumeContextType = {
   experience: ItemData[];
@@ -13,9 +14,54 @@ type ResumeContextType = {
 const ResumeContext = createContext<ResumeContextType | undefined>(undefined);
 
 export const ResumeProvider = ({ children }: { children: ReactNode }) => {
-  const [experience, setExperience] = useState<ItemData[]>([]);
-  const [activities, setActivities] = useState<ItemData[]>([]);
-  const [skills, setSkills] = useState<ItemData[]>([]);
+  const { resumeAnalysisData } = useUserInfo();
+  const [experience, setExperience] = useState<ItemData[]>(() => {
+    if (resumeAnalysisData?.career) {
+      // API 응답 구조에 맞게 데이터 변환
+      return resumeAnalysisData.career.map((item: ItemData) => {
+        const result: ItemData = {
+          id: item.id || Date.now().toString(),
+        };
+
+        // 각 속성이 존재하고 빈 문자열이 아닌 경우에만 할당
+        if (item.job !== undefined && item.job !== '') result.job = item.job;
+        if (item.company !== undefined && item.company !== '')
+          result.company = item.company;
+        if (item.description !== undefined && item.description !== '')
+          result.description = item.description;
+
+        return result;
+      });
+    }
+    return [];
+  });
+  const [activities, setActivities] = useState<ItemData[]>(() => {
+    if (resumeAnalysisData?.activities) {
+      // API 응답 구조에 맞게 데이터 변환
+      return resumeAnalysisData.activities.map((item: ItemData) => {
+        const result: ItemData = {
+          id: item.id || Date.now().toString(),
+        };
+        if (item.name !== undefined && item.name !== '')
+          result.name = item.name;
+
+        return result;
+      });
+    }
+    return [];
+  });
+  const [skills, setSkills] = useState<ItemData[]>(() => {
+    if (
+      resumeAnalysisData?.certifications &&
+      Array.isArray(resumeAnalysisData.certifications)
+    ) {
+      return resumeAnalysisData.certifications.map((certification: string) => ({
+        id: Date.now().toString() + Math.random().toString(36).substring(2, 9), // 고유 ID 생성
+        name: certification, // 문자열 자체를 title 속성에 할당
+      }));
+    }
+    return [];
+  });
 
   const addItem = (category: CategoryType, item: ItemData) => {
     const newItem = { ...item, id: Date.now().toString() };

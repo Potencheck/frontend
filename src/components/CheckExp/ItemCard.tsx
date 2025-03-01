@@ -5,7 +5,7 @@ export type ItemCardProps = {
   job?: string | null;
   company?: string | null;
   description?: string | null;
-  title?: string | null;
+  name?: string | null;
   subtitle?: string | null;
   onClick?: () => void;
 };
@@ -14,7 +14,7 @@ export type ItemCardProps = {
 const ItemCard = ({
   job,
   company,
-  title,
+  name,
   subtitle,
   description,
   onClick,
@@ -25,7 +25,7 @@ const ItemCard = ({
       className="w-full border-b border-border-line pb-3 cursor-pointer"
     >
       <div className="flex items-center justify-between">
-        <div className="subtle2-semibold text-text-primary">{title || job}</div>
+        <div className="subtle2-semibold text-text-primary">{name || job}</div>
         <GoEditIcon className="rotate-270" />
       </div>
 

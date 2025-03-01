@@ -20,7 +20,7 @@ export const SkillForm = ({ onBack, editItem }: SkillFormProps) => {
   const { addItem, updateItem } = useResume();
   const [formData, setFormData] = useState<ItemData>(
     editItem || {
-      title: '',
+      name: '',
     },
   );
   const [certSearchInput, setCertSearchInput] = useState('');
@@ -28,7 +28,7 @@ export const SkillForm = ({ onBack, editItem }: SkillFormProps) => {
     searchCertificates(certSearchInput),
   );
 
-  const isValid = formData.title !== '' && formData.subtitle !== '';
+  const isValid = formData.name !== '' && formData.subtitle !== '';
   const [selectedCertList, setSelectedCertList] = useState<string[]>([]);
 
   const handleCertSelect = (cert: string) => {
