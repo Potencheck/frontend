@@ -4,12 +4,22 @@ type PageTitleProps = {
   onGoBack: () => void;
   title?: string;
   subTitle?: string;
+  bgColor?: string;
 };
 
-const PageTitle = ({ onGoBack, title, subTitle }: PageTitleProps) => {
+const PageTitle = ({
+  onGoBack,
+  title,
+  subTitle,
+  bgColor = 'background-card',
+}: PageTitleProps) => {
   return (
     <>
-      <header className="w-full py-3 sticky top-0 bg-white z-20">
+      <header
+        className={`w-full py-3 sticky top-0 bg-${
+          bgColor || 'background-card'
+        } z-20`}
+      >
         <div className="w-5 h-5" onClick={onGoBack}>
           <BackIcon />
         </div>
