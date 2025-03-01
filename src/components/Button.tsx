@@ -25,7 +25,7 @@ const Button = ({ type, title, onClick, icon }: buttonProps) => {
   return (
     <>
       <button
-        className={`${getButtonStyle()} flex items-center justify-center gap-2 w-full h-12 subtle2-semibold rounded-lg`}
+        className={`${getButtonStyle()} flex items-center justify-center gap-2 w-full h-12 subtle2-semibold rounded-lg cursor-pointer`}
         onClick={onClick}
       >
         {icon}
