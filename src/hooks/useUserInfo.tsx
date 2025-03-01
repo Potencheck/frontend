@@ -1,4 +1,6 @@
 import { createContext, ReactNode, useContext, useState } from 'react';
+import { usePostResume } from './api/useAPIs';
+import { ResumePostResponse } from '@/types/experience';
 
 export enum JobCategory {
   DEVELOPER = '개발',
@@ -49,18 +51,35 @@ interface UserInfoContextType {
     value: UserInfo[K],
   ) => void;
   resetUserInfo: () => void;
+  analyzeUserResume: () => void;
+  resumeAnalysisData: ResumePostResponse | null;
 }
 
 const UserInfoContext = createContext<UserInfoContextType>({
   userInfo: initialUserInfo,
   updateUserInfo: () => {},
   resetUserInfo: () => {},
+  analyzeUserResume: () => {},
+  resumeAnalysisData: null,
 });
 
 // Provider 컴포넌트
 export const UserInfoProvider = ({ children }: { children: ReactNode }) => {
   const [userInfo, setUserInfo] = useState<UserInfo>(initialUserInfo);
+  const [resumeAnalysisData, setResumeAnalysisData] =
+    useState<ResumePostResponse | null>(null);
+  const { mutate: analyzeResume } = usePostResume({
+    onSuccess: (data) => {
+      console.log(data);
+      setResumeAnalysisData(data);
+    },
+  });
 
+  const analyzeUserResume = () => {
+    if (userInfo.experience?.file) {
+      analyzeResume(userInfo.experience.file);
+    }
+  };
   const updateUserInfo = <K extends keyof UserInfo>(
     field: K,
     value: UserInfo[K],
@@ -77,7 +96,13 @@ export const UserInfoProvider = ({ children }: { children: ReactNode }) => {
 
   return (
     <UserInfoContext.Provider
-      value={{ userInfo, updateUserInfo, resetUserInfo }}
+      value={{
+        userInfo,
+        updateUserInfo,
+        resetUserInfo,
+        analyzeUserResume,
+        resumeAnalysisData,
+      }}
     >
       {children}
     </UserInfoContext.Provider>

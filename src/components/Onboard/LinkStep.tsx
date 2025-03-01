@@ -37,6 +37,7 @@ const LinkStep = ({ onBack, onNext }: LinkStepProps) => {
   const handleFileChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     if (e.target.files && e.target.files.length > 0) {
       setExperience({ file: e.target.files[0], link: '' });
+      updateUserInfo('experience', { file: e.target.files[0], link: '' });
     }
   };
 
