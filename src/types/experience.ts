@@ -1,5 +1,5 @@
 export interface ItemData {
-  id?: string | null;
+  id: string | null;
   job?: string | null;
   company?: string | null;
   description?: string | null;

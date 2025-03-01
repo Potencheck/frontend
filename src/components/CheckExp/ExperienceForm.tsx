@@ -17,6 +17,7 @@ const ExperienceForm = ({ onBack, editItem }: ExperienceFormProps) => {
   const { addItem, updateItem } = useResume();
   const [formData, setFormData] = useState<ItemData>(
     editItem || {
+      id: Date.now().toString(),
       job: '',
       company: '',
       description: '',

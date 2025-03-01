@@ -1,12 +1,14 @@
 import ItemCard from '@/components/CheckExp/ItemCard';
 import AddIcon from '@/assets/icons/icon_plus.svg?react';
-import { ItemData } from '@/types/experience';
+import { ItemData, ViewType } from '@/types/experience';
 
 type CategoryCardProps = {
   title: string;
   icon: React.ReactNode;
   items: ItemData[];
+  category: ViewType;
   onAddClick: () => void;
+  onEditClick?: (type: ViewType, id: string) => void;
   emptyState?: boolean;
 };
 
@@ -15,7 +17,9 @@ const CategoryCard = ({
   title,
   icon,
   items = [],
+  category,
   onAddClick,
+  onEditClick,
   emptyState = true,
 }: CategoryCardProps) => {
   return (
@@ -45,7 +49,12 @@ const CategoryCard = ({
       {items.length > 0 && (
         <div className="space-y-4">
           {items.map((item, index) => (
-            <ItemCard key={index} {...item} />
+            <ItemCard
+              key={index}
+              {...item}
+              category={category}
+              onEditClick={onEditClick}
+            />
           ))}
 
           <button

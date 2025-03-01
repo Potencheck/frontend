@@ -56,6 +56,11 @@ const CheckExperiencePage = () => {
     setCurrentView('skill');
   };
 
+  const handleEditItem = (type: ViewType, id: string) => {
+    setEditItemId(id);
+    setCurrentView(type);
+  };
+
   // 뒤로가기 핸들러
   const handleBackToMain = () => {
     setCurrentView('main');
@@ -85,24 +90,30 @@ const CheckExperiencePage = () => {
             onGoBack={() => navigate(-1)}
             title="직무 경험 입력"
             subTitle="경험을 많이 추가할수록 정확한 결과를 받을 수 있어요"
+            bgColor="background-screen"
           />
           <CategoryCard
             title="경력"
             icon="💼"
+            category="experience"
             items={experience}
             onAddClick={handleAddExperience}
+            onEditClick={handleEditItem}
           />
 
           <CategoryCard
             title="직무 활동"
             icon="📝"
+            category="activity"
             items={activities}
             onAddClick={handleAddActivity}
+            onEditClick={handleEditItem}
           />
 
           <CategoryCard
             title="자격증 및 스킬"
             icon="⚡"
+            category="skill"
             items={skills}
             onAddClick={handleAddSkill}
           />

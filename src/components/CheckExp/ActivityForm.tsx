@@ -17,6 +17,7 @@ export const ActivityForm = ({ onBack, editItem }: ActivityFormProps) => {
   const { addItem, updateItem } = useResume();
   const [formData, setFormData] = useState<ItemData>(
     editItem || {
+      id: Date.now().toString(),
       name: '',
       description: '',
     },

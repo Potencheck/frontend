@@ -20,6 +20,7 @@ export const SkillForm = ({ onBack, editItem }: SkillFormProps) => {
   const { addItem, updateItem } = useResume();
   const [formData, setFormData] = useState<ItemData>(
     editItem || {
+      id: Date.now().toString(),
       name: '',
     },
   );

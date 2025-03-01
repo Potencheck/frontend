@@ -22,7 +22,7 @@ const LoadingScreen = ({
   const navigate = useNavigate();
 
   useEffect(() => {
-    const totalDuration = 30000; // 30초 (밀리초)
+    const totalDuration = 20000; // 20초 (밀리초)
     const interval = 100; // 업데이트 간격 (밀리초)
     const incrementPerInterval = 100 / (totalDuration / interval);
 

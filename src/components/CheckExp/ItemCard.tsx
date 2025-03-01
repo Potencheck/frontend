@@ -1,23 +1,29 @@
 import GoEditIcon from '@/assets/icons/icon_arrow.svg?react';
+import { ViewType } from '@/types/experience';
 
 export type ItemCardProps = {
-  id?: string | null;
+  id: string | null;
   job?: string | null;
   company?: string | null;
   description?: string | null;
   name?: string | null;
   subtitle?: string | null;
   onClick?: () => void;
+  category: ViewType;
+  onEditClick?: (type: ViewType, id: string) => void;
 };
 
 // 각 아이템 카드 컴포넌트
 const ItemCard = ({
+  id,
   job,
   company,
   name,
   subtitle,
   description,
+  category,
   onClick,
+  onEditClick,
 }: ItemCardProps) => {
   return (
     <div
@@ -26,7 +32,12 @@ const ItemCard = ({
     >
       <div className="flex items-center justify-between">
         <div className="subtle2-semibold text-text-primary">{name || job}</div>
-        <GoEditIcon className="rotate-270" />
+        {onEditClick && (
+          <GoEditIcon
+            className="rotate-270"
+            onClick={() => onEditClick(category, String(id))}
+          />
+        )}
       </div>
 
       {subtitle && (
