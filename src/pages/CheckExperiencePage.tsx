@@ -93,9 +93,10 @@ const CheckExperiencePage = () => {
         <LoadingScreen
           title={`두구두구..\n희망 직무와 내 역량의 적합도는?`}
           subtitle={`최근 1개월 내 희망 직무의 채용공고에서 분석한\n핵심 트렌드 역량을 내 역량과 비교하고 있어요`}
-          onLoadingComplete={() => navigate('/')}
+          onLoadingComplete={() => navigate('/analyze-success')}
           animationData={animationData}
           isAnalyze
+          nextRoute="/analyze-success"
         />
       ) : (
         <div className="w-full h-screen bg-background-screen absolute inset-0 px-5 flex flex-col items-center">
