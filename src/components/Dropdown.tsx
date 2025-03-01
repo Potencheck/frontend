@@ -78,12 +78,13 @@ const Dropdown = ({
               className="w-full relative leading-5 outline-none bg-white"
               value={value ?? ''}
               placeholder={placeholder}
-              disabled
+              readOnly
+              onClick={() => setIsOpen(!isOpen)} // 중복 이벤트 방지
             />
             {/* 드롭다운 토글 버튼 */}
             <button
-              onClick={() => setIsOpen(!isOpen)}
               className="p-0 rounded-full transition-colors"
+              onClick={() => setIsOpen(!isOpen)}
             >
               <div
                 className={`flex items-center justify-center w-5 h-6 transition-transform duration-300 ${
