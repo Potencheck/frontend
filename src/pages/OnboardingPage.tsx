@@ -2,20 +2,26 @@ import ExperienceStep from '@/components/Onboard/ExperienceStep';
 import JobStep from '@/components/Onboard/JobStep';
 import LinkStep from '@/components/Onboard/LinkStep';
 import NameStep from '@/components/Onboard/NameStep';
-import { UserInfoProvider } from '@/hooks/useUserInfo';
+import { useUserInfo } from '@/hooks/useUserInfo';
 import { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
+import CheckExperiencePage from '@/pages/CheckExperiencePage';
+import { ResumeProvider } from '@/hooks/useExperience';
+import LoadingScreen from '@/components/Onboard/LoadingScreen';
+import animationData from '@/assets/loading_paper.json';
 
 const enum FunnelStep {
   NAME = 1,
   JOB = 2,
   EXPERIENCE = 3,
   LINK = 4,
-  CHECK = 5,
+  LOAD = 5,
+  CHECK = 6,
 }
 const OnboardingPage = () => {
   const navigate = useNavigate();
   const [currentStep, setCurrentStep] = useState<FunnelStep>(FunnelStep.NAME);
+  const { userInfo, analyzeUserResume } = useUserInfo();
   const handleOnGoBack = () => {
     if (currentStep === FunnelStep.NAME) navigate('/');
     else setCurrentStep(currentStep - 1);
@@ -27,7 +33,10 @@ const OnboardingPage = () => {
       setCurrentStep(nextStep);
     } else {
       // 기본 다음 단계로 이동
-      if (currentStep !== FunnelStep.LINK) setCurrentStep(currentStep + 1);
+      if (currentStep === FunnelStep.LINK) {
+        analyzeUserResume();
+      }
+      setCurrentStep(currentStep + 1);
     }
   };
   const renderStep = () => {
@@ -53,15 +62,27 @@ const OnboardingPage = () => {
         );
       case FunnelStep.LINK:
         return <LinkStep onBack={handleOnGoBack} onNext={handleOnNext} />;
+      case FunnelStep.LOAD:
+        return (
+          <LoadingScreen
+            title={`${userInfo.name}님의 직무 경험을\n추출하고 있어요!`}
+            subtitle={`직무 역량을 분석하기 위한\n경력, 직무 활동, 자격증 및 스킬을 추출하고 있어요`}
+            onLoadingComplete={handleOnNext}
+            animationData={animationData}
+            isAnalyze
+          />
+        );
+      case FunnelStep.CHECK:
+        return (
+          <ResumeProvider>
+            <CheckExperiencePage />
+          </ResumeProvider>
+        );
       default:
         return <NameStep onBack={handleOnGoBack} onNext={handleOnNext} />;
     }
   };
-  return (
-    <div className="w-full px-5 inset-0">
-      <UserInfoProvider>{renderStep()}</UserInfoProvider>
-    </div>
-  );
+  return <div className="w-full px-5 inset-0">{renderStep()}</div>;
 };
 
 export default OnboardingPage;

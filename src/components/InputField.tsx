@@ -109,27 +109,26 @@ const InputField = ({
         )}
       </div>
       {/* text/input field 하단 경고 문구와 글자 수 측정기 */}
-      <div className="flex justify-between mt-2">
-        {!!textLimit && (
-          <>
-            <div className="body3-regular text-warning">
-              {isInvalid ? `${textLimit}자 이내로 입력해주세요.` : ''}
-            </div>
-            <div className="flex body3-regular">
-              <span
-                className={`${
-                  (value?.length ?? 0) > textLimit
-                    ? 'text-warning'
-                    : 'text-text-primary'
-                } mr-1`}
-              >
-                {value?.length ?? 0}
-              </span>
-              <span className="text-text-secondary">{` / ${textLimit}`}</span>
-            </div>
-          </>
-        )}
-      </div>
+
+      {!!textLimit && (
+        <div className="flex justify-between mt-2">
+          <div className="body3-regular text-warning">
+            {isInvalid ? `${textLimit}자 이내로 입력해주세요.` : ''}
+          </div>
+          <div className="flex body3-regular">
+            <span
+              className={`${
+                (value?.length ?? 0) > textLimit
+                  ? 'text-warning'
+                  : 'text-text-primary'
+              } mr-1`}
+            >
+              {value?.length ?? 0}
+            </span>
+            <span className="text-text-secondary">{` / ${textLimit}`}</span>
+          </div>
+        </div>
+      )}
     </>
   );
 };
