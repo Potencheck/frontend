@@ -45,7 +45,7 @@ export const ActivityForm = ({ onBack, editItem }: ActivityFormProps) => {
         <InputLayout title="활동 명" isEssential>
           <InputField
             placeholder="ex. 부트캠프, IT동아리, 해커톤"
-            value={formData.title}
+            value={formData.title || ''}
             onChange={(value: string) =>
               setFormData({ ...formData, title: value })
             }

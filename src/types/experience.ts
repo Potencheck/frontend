@@ -1,12 +1,10 @@
 export interface ItemData {
-  id?: string;
-  title: string;
-  subtitle?: string;
-  period?: string;
-  description?: string;
-  startDate?: string;
-  endDate?: string;
-  months?: number;
+  id?: string | null;
+  job?: string | null;
+  company?: string | null;
+  description?: string | null;
+  title?: string | null;
+  subtitle?: string | null;
 }
 
 export type CategoryType = 'experience' | 'activity' | 'skill';

@@ -17,12 +17,12 @@ const ExperienceForm = ({ onBack, editItem }: ExperienceFormProps) => {
   const { addItem, updateItem } = useResume();
   const [formData, setFormData] = useState<ItemData>(
     editItem || {
-      title: '',
-      subtitle: '',
+      job: '',
+      company: '',
       description: '',
     },
   );
-  const isValid = formData.title !== '' && formData.subtitle !== '';
+  const isValid = formData.job !== '' && formData.company !== '';
 
   const handleSubmit = () => {
     if (editItem && editItem.id) {
@@ -46,9 +46,9 @@ const ExperienceForm = ({ onBack, editItem }: ExperienceFormProps) => {
         <InputLayout title="직무 명" isEssential>
           <InputField
             placeholder="ex. 프로덕트 디자이너, 프론트엔드 개발자"
-            value={formData.title}
+            value={formData.job || ''}
             onChange={(value: string) =>
-              setFormData({ ...formData, title: value })
+              setFormData({ ...formData, job: value })
             }
             textLimit={20}
           />
@@ -56,9 +56,9 @@ const ExperienceForm = ({ onBack, editItem }: ExperienceFormProps) => {
         <InputLayout title="회사 명" isEssential>
           <InputField
             placeholder="재직한 회사 이름을 입력해주세요"
-            value={formData.subtitle || ''}
+            value={formData.company || ''}
             onChange={(value: string) =>
-              setFormData({ ...formData, subtitle: value })
+              setFormData({ ...formData, company: value })
             }
             textLimit={20}
           />
