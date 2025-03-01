@@ -3,6 +3,7 @@ import Button from '@/components/Button';
 import ActivityForm from '@/components/CheckExp/ActivityForm';
 import CategoryCard from '@/components/CheckExp/CategoryCard';
 import ExperienceForm from '@/components/CheckExp/ExperienceForm';
+import Modal from '@/components/CheckExp/Modal';
 import SkillForm from '@/components/CheckExp/SkillForm';
 import PageTitle from '@/components/PageTitle';
 import { buttonTypeKeys } from '@/constants/common';
@@ -23,6 +24,7 @@ const CheckExperiencePage = () => {
 
   const [currentView, setCurrentView] = useState<ViewType>('main');
   const [editItemId, setEditItemId] = useState<string | null>(null);
+  const [isModal, setIsModal] = useState(false);
   const isValid = !experience.length && !activities.length && !skills.length;
 
   // 현재 편집 중인 항목 찾기
@@ -86,8 +88,20 @@ const CheckExperiencePage = () => {
     <>
       <div className="w-full h-screen bg-background-screen absolute inset-0 px-5 flex flex-col items-center">
         <div className="w-full overflow-x-scroll no-scrollbar::-webkit-scrollbar no-scrollbar [&>*:last-child]:mb-20">
+          {isModal && (
+            <Modal
+              isOpen={isModal}
+              onClose={() => setIsModal(false)}
+              onPrimaryAction={() => navigate('/')}
+              title="직무 경험 추출을 그만두시겠어요?"
+              primaryActionText="그만두기"
+              secondaryActionText="취소"
+            >
+              그만두기를 클릭하시면 추출된 내용이 모두 사라져요
+            </Modal>
+          )}
           <PageTitle
-            onGoBack={() => navigate(-1)}
+            onGoBack={() => setIsModal(true)}
             title="직무 경험 입력"
             subTitle="경험을 많이 추가할수록 정확한 결과를 받을 수 있어요"
             bgColor="background-screen"
