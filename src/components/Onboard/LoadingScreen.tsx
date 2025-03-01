@@ -48,7 +48,7 @@ const LoadingScreen = ({
   }, [onLoadingComplete, navigate, nextRoute]);
 
   return (
-    <div className="flex flex-col justify-between items-center w-full absolute inset-0 h-screen bg-background-screen px-4 text-center">
+    <div className="flex flex-col justify-between items-center w-full absolute inset-0 h-screen bg-background-screen px-4 mb-8 text-center">
       <section className="flex flex-col items-center">
         <h1 className="head-h1 mt-25 mb-5">{title}</h1>
 
@@ -63,20 +63,22 @@ const LoadingScreen = ({
         </div>
       </section>
 
-      <section className="mb-8">
-        <p className="subtle2-regular text-text-secondary mt-11 mb-10">
-          {Math.round(progress)}% 진행 중
-        </p>
+      <div className="w-full fixed bottom-0 left-0 flex flex-col items-center justify-center py-3 box-border text-center subtle2-semibold z-10">
+        <div className="w-full max-w-[450px] px-5 flex flex-col items-center justify-center">
+          <p className="subtle2-regular text-text-secondary mt-11 mb-10">
+            {Math.round(progress)}% 진행 중
+          </p>
 
-        {isAnalyze && (
-          <div className="bg-white p-5  rounded-lg max-w-[340px]">
-            <p className="body2-regular text-text-secondary">
-              AI가 채용공고의 자주 등장하는 역량 키워드와 필수 역량, 우대 사항
-              등 문맥을 고려하여 핵심 역량을 분석해요
-            </p>
-          </div>
-        )}
-      </section>
+          {isAnalyze && (
+            <div className="bg-white p-5 rounded-lg max-w-[340px]">
+              <p className="body2-regular text-text-secondary">
+                AI가 채용공고의 자주 등장하는 역량 키워드와 필수 역량, 우대 사항
+                등 문맥을 고려하여 핵심 역량을 분석해요
+              </p>
+            </div>
+          )}
+        </div>
+      </div>
     </div>
   );
 };

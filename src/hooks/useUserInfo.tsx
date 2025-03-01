@@ -8,13 +8,6 @@ export enum JobCategory {
   MARKETER = '기획',
 }
 
-export enum JobPosition {
-  FRONTEND = '프론트엔드',
-  BACKEND = '백엔드',
-  FULLSTACK = '풀스택',
-  // TODO: 직무 채워넣기
-}
-
 export interface Experience {
   // PDF 파일인 경우
   file: File | null;
@@ -28,11 +21,13 @@ export interface Experience {
 }
 
 // 사용자 정보 인터페이스 TODO: 명세서 나오면 수정
-interface UserInfo {
+export interface UserInfo {
   name: string;
   jobCategory: JobCategory | null;
-  jobPosition: JobPosition | null;
+  jobPosition: string | null;
+  exp: string | null; // 경력/신입 여부
   experience: Experience | null;
+  uuid: string | null;
 }
 
 // 초기 상태
@@ -40,7 +35,9 @@ const initialUserInfo: UserInfo = {
   name: '',
   jobCategory: null,
   jobPosition: null,
+  exp: null,
   experience: null,
+  uuid: null,
 };
 
 // Context 생성

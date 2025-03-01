@@ -17,3 +17,16 @@ export type ResumePostResponse = {
   activities: ItemData[] | null;
   certifications: string[] | null;
 };
+
+// 202 리포트 생성(파일) response type
+export type RequestPostResponse = {
+  id: string;
+};
+
+export type RequestReportPost = {
+  user: {
+    name: string;
+    job: string;
+    exp: string;
+  };
+};

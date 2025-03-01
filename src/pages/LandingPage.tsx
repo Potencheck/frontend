@@ -25,7 +25,6 @@ const LandingPage = () => {
           <p className="subtle2-regular text-center text-text-secondary mb-[35px] max-w-[310px] break-keep">
             나의 직무 역량을 체크해 봐요
           </p>
-          {/* Lottie 애니메이션 */}
           <div className="w-full items-center">
             <LandingImage />
           </div>
