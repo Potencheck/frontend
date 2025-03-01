@@ -96,30 +96,3 @@ const Modal = ({
 };
 
 export default Modal;
-
-// Usage example:
-/*
-import Modal from './components/Modal';
-
-const App = () => {
-  const [isModalOpen, setIsModalOpen] = useState(false);
-  
-  return (
-    <div>
-      <button onClick={() => setIsModalOpen(true)}>
-        Open Modal
-      </button>
-      
-      <Modal 
-        isOpen={isModalOpen}
-        onClose={() => setIsModalOpen(false)}
-        title="직무 경험 추출을 그만두시겠어요?"
-        primaryActionText="그만두기"
-        secondaryActionText="취소"
-      >
-        그만두기를 클릭하시면 추출된 내용이 모두 사라져요
-      </Modal>
-    </div>
-  );
-};
-*/
