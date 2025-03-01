@@ -1,6 +1,7 @@
-import { postResume } from '@/api';
-import { ResumePostResponse } from '@/types/experience';
+import { postRequestReport, postResume } from '@/api';
+import { RequestPostResponse, ResumePostResponse } from '@/types/experience';
 import { useMutation, UseMutationOptions } from '@tanstack/react-query';
+import { UserInfo } from '../useUserInfo';
 
 // 101 이력서 파일 추출 커스텀 훅
 export const usePostResume = (
@@ -9,5 +10,15 @@ export const usePostResume = (
   return useMutation({
     ...options,
     mutationFn: async (data: File) => postResume(data),
+  });
+};
+
+//202 리포트 생성 커스텀 훅
+export const useRequestReport = (
+  options?: UseMutationOptions<RequestPostResponse, Error, UserInfo>,
+) => {
+  return useMutation({
+    ...options,
+    mutationFn: async (data: UserInfo) => postRequestReport(data),
   });
 };

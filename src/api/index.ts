@@ -1,4 +1,6 @@
-import { ResumePostResponse } from '@/types/experience';
+import { UserInfo } from '@/hooks/useUserInfo';
+import { RequestPostResponse, ResumePostResponse } from '@/types/experience';
+import { convertUserData } from '@/utils/experience';
 import axios from 'axios';
 
 /**
@@ -31,6 +33,21 @@ export async function postResume(
   const formData = new FormData();
   formData.append('file', resumeData);
   const response = await api.post(`/career/extract`, formData, {
+    headers: {
+      'Content-Type': 'multipart/form-data',
+    },
+  });
+  return response.data;
+}
+
+// 분석 요청
+export async function postRequestReport(
+  userData: UserInfo,
+): Promise<RequestPostResponse> {
+  const formData = new FormData();
+  formData.append('user_json', JSON.stringify(convertUserData(userData)));
+  formData.append('file', userData.experience?.file as File);
+  const response = await api.post(`/report`, formData, {
     headers: {
       'Content-Type': 'multipart/form-data',
     },
