@@ -30,7 +30,7 @@ export async function postResume(
 ): Promise<ResumePostResponse> {
   const formData = new FormData();
   formData.append('file', resumeData);
-  const response = await api.post(`/carrer/experience/upload`, formData, {
+  const response = await api.post(`/career/extract`, formData, {
     headers: {
       'Content-Type': 'multipart/form-data',
     },

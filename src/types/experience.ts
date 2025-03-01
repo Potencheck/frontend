@@ -3,7 +3,7 @@ export interface ItemData {
   job?: string | null;
   company?: string | null;
   description?: string | null;
-  title?: string | null;
+  name?: string | null;
   subtitle?: string | null;
 }
 
