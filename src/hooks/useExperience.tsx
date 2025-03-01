@@ -1,6 +1,8 @@
 import { createContext, useContext, useState, ReactNode } from 'react';
 import { ItemData, CategoryType } from '@/types/experience';
 import { useUserInfo } from './useUserInfo';
+import { useRequestReport } from './api/useAPIs';
+import { useNavigate } from 'react-router-dom';
 
 type ResumeContextType = {
   experience: ItemData[];
@@ -9,12 +11,27 @@ type ResumeContextType = {
   addItem: (category: CategoryType, item: ItemData) => void;
   updateItem: (category: CategoryType, id: string, item: ItemData) => void;
   deleteItem: (category: CategoryType, id: string) => void;
+  requestUserReport: () => void;
 };
 
 const ResumeContext = createContext<ResumeContextType | undefined>(undefined);
 
 export const ResumeProvider = ({ children }: { children: ReactNode }) => {
-  const { resumeAnalysisData } = useUserInfo();
+  const navigate = useNavigate();
+  const { userInfo, updateUserInfo, resumeAnalysisData } = useUserInfo();
+  const { mutate: requestReport } = useRequestReport({
+    onSuccess: (data) => {
+      updateUserInfo('uuid', data.id);
+    },
+    onError: () => {
+      alert('리포트 생성에 실패했습니다. 다시 시도해주세요.');
+      navigate('/');
+    },
+  });
+
+  const requestUserReport = () => {
+    requestReport(userInfo);
+  };
   const [experience, setExperience] = useState<ItemData[]>(() => {
     if (resumeAnalysisData?.career) {
       // API 응답 구조에 맞게 데이터 변환
@@ -122,6 +139,7 @@ export const ResumeProvider = ({ children }: { children: ReactNode }) => {
         addItem,
         updateItem,
         deleteItem,
+        requestUserReport,
       }}
     >
       {children}
