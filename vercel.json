@@ -1,0 +1,6 @@
+{
+  "routes": [
+    { "src": "/report/(?<id>[^/]+)", "dest": "/index.html" },
+    { "src": "/[^.]+", "dest": "/", "status": 200 }
+  ]
+}
