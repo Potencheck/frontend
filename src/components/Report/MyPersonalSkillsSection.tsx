@@ -37,10 +37,10 @@ const MyPersonalSkillsSection = ({
                     : '⚡'}
                 </span>
               </div>
-              <h3 className="font-semibold text-lg leading-[140%] text-[#222222]">
+              <h3 className="font-semibold text-lg leading-[140%] text-[#222222] break-keep">
                 {skill.skill}
               </h3>
-              <p className="text-sm leading-[150%] text-[#5F5F5F]">
+              <p className="text-sm leading-[150%] text-[#5F5F5F] break-keep">
                 {skill.description}
               </p>
             </div>

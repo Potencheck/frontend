@@ -16,7 +16,7 @@ const AIFeedbackSection = ({ summary, review }: AIFeedbackSectionProps) => {
               <span className="text-[22px] leading-[150%] text-[#222222]">
                 🧚
               </span>
-              <p className="font-semibold text-base leading-[150%] text-[#222222] w-3/4">
+              <p className="font-semibold text-base leading-[150%] text-[#222222] w-3/4 break-keep">
                 {summary}
               </p>
             </div>

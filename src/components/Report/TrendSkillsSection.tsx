@@ -1,3 +1,4 @@
+import { convertFromJobString } from '@/utils/experience';
 import React from 'react';
 
 interface TrendSkillsSectionProps {
@@ -20,7 +21,7 @@ const TrendSkillsSection: React.FC<TrendSkillsSectionProps> = ({
               </span>
             </div>
             <h2 className="flex-1 font-semibold text-lg leading-[140%] text-[#222222] whitespace-pre-line">
-              {`${job}\n트렌드 기술 역량`}
+              {`${convertFromJobString(job).jobPosition}\n트렌드 기술 역량`}
             </h2>
           </div>
           <div className="flex flex-wrap gap-x-2 gap-y-3">
