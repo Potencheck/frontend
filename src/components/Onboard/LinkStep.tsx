@@ -107,17 +107,24 @@ const LinkStep = ({ onBack, onNext }: LinkStepProps) => {
           {experienceType === ExpType.FILE && <CheckIcon />}
           파일 첨부
         </button>
-        <button
-          className={`flex subtle2-medium rounded-full px-4 py-2 ${
-            experienceType === ExpType.LINK
-              ? 'bg-text-secondary text-white border border-text-secondary'
-              : 'bg-white text-text-secondary border border-border-line'
-          }`}
-          onClick={() => handleExpTypeSelect(ExpType.LINK)}
-        >
-          {experienceType === ExpType.LINK && <CheckIcon />}
-          링크 첨부
-        </button>
+        {experienceType === ExpType.LINK ? (
+          <button
+            className={`flex subtle2-medium rounded-full px-4 py-2 'bg-text-secondary border bg-text-secondary text-white border border-text-secondary
+            `}
+            onClick={() => handleExpTypeSelect(ExpType.LINK)}
+          >
+            {experienceType === ExpType.LINK && <CheckIcon />}
+            링크 첨부
+          </button>
+        ) : (
+          <button
+            className={`flex subtle2-medium rounded-full px-4 py-2 'bg-text-secondary bg-white text-text-secondary border border-border-line'
+            `}
+            onClick={() => handleExpTypeSelect(ExpType.LINK)}
+          >
+            링크 첨부
+          </button>
+        )}
       </section>
       {/* 파일/링크 첨부 */}
       {experienceType === ExpType.FILE ? (
