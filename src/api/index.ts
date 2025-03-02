@@ -1,5 +1,6 @@
 import { UserInfo } from '@/hooks/useUserInfo';
 import { RequestPostResponse, ResumePostResponse } from '@/types/experience';
+import { ReportGetResponse } from '@/types/report';
 import { convertUserData } from '@/utils/experience';
 import axios from 'axios';
 
@@ -52,5 +53,12 @@ export async function postRequestReport(
       'Content-Type': 'multipart/form-data',
     },
   });
+  return response.data;
+}
+
+export async function getReport(
+  reportId: string | undefined,
+): Promise<ReportGetResponse> {
+  const response = await api.get(`/report/${reportId}`);
   return response.data;
 }

@@ -9,6 +9,11 @@ import { useNavigate } from 'react-router-dom';
 const AnalyzeSuccessPage = () => {
   const { userInfo } = useUserInfo();
   const navigate = useNavigate();
+
+  const handleReportClick = () => {
+    navigate(`/report/${userInfo.uuid}`);
+  };
+
   return (
     <>
       <div className="w-full h-screen overflow-y-hidden bg-background-card absolute inset-0 flex flex-col items-center">
@@ -47,7 +52,7 @@ const AnalyzeSuccessPage = () => {
           <Button
             type={buttonTypeKeys.ACTIVE}
             title="리포트 확인하기"
-            onClick={() => navigate('/report')}
+            onClick={handleReportClick}
           />
         </BottomButtonPanel>
       </div>
