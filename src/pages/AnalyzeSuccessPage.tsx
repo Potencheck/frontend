@@ -5,22 +5,13 @@ import PageTitle from '@/components/PageTitle';
 import { buttonTypeKeys } from '@/constants/common';
 import { useUserInfo } from '@/hooks/useUserInfo';
 import { useNavigate } from 'react-router-dom';
-import { useRequestReport } from '@/hooks/api/useAPIs';
 
 const AnalyzeSuccessPage = () => {
   const { userInfo } = useUserInfo();
   const navigate = useNavigate();
-  const { mutate: requestReport } = useRequestReport({
-    onSuccess: (data) => {
-      navigate(`/report/${data.id}`);
-    },
-    onError: () => {
-      alert('리포트 요청에 실패했습니다. 다시 시도해주세요.');
-    },
-  });
 
   const handleReportClick = () => {
-    requestReport(userInfo);
+    navigate(`/report/${userInfo.uuid}`);
   };
 
   return (

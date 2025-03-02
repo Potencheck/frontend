@@ -3,6 +3,7 @@ import BackIcon from '@/assets/icons/Icon_Back.svg?react';
 import HighMatchImage from '@/assets/icons/career-match-high.svg?react';
 import MediumMatchImage from '@/assets/icons/career-match-medium.svg?react';
 import LowMatchImage from '@/assets/icons/career-match-low.svg?react';
+import { convertFromJobString } from '@/utils/experience';
 
 type ReportCoverProps = {
   name: string;
@@ -65,7 +66,9 @@ const ReportCover = ({
             : '서로 알아가고 있는 단계 🌱'}
         </h1>
         <p className="subtle2-regular text-text-secondary break-keep">
-          {`${name}님은 현재 ${job}가 요구하는 역량의 ${careerFitness}% 이상 갖추고 있어요!`}
+          {`${name}님은 현재 ${
+            convertFromJobString(job).jobPosition
+          }가 요구하는 역량의 ${careerFitness}% 이상 갖추고 있어요!`}
         </p>
       </section>
       <section className="relative w-[277px] h-[328px] mx-auto mb-[68px] flex flex-col justify-end items-center gap-[10px] border-4 border-white rounded-[16px] shadow-[0px_0px_16px_rgba(0,0,0,0.12)] bg-white">

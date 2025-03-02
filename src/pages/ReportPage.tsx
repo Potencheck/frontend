@@ -100,7 +100,19 @@ const ReportPage = ({ userId }: { userId: string | undefined }) => {
             <Button
               type={buttonTypeKeys.ACTIVE}
               title="리포트 공유하기"
-              onClick={() => {}}
+              onClick={() => {
+                if (navigator.share) {
+                  navigator
+                    .share({
+                      title: `[${document.title}]`,
+                      text: `${userName}님이 자신의 역량 리포트를 전달했어요.\n나의 직무 역량도 확인해 보세요!\n${window.location.href}`,
+                    })
+                    .then(() => console.log('공유 성공'))
+                    .catch((error) => console.error('공유 실패', error));
+                } else {
+                  alert('이 브라우저는 공유 기능을 지원하지 않습니다.');
+                }
+              }}
             />
           </BottomButtonPanel>
         </>

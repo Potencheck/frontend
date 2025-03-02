@@ -1,3 +1,4 @@
+import { convertFromJobString } from '@/utils/experience';
 import PageTitle from '../PageTitle';
 
 interface RequiredSkillsSectionProps {
@@ -18,7 +19,9 @@ const RequiredSkillsSection: React.FC<RequiredSkillsSectionProps> = ({
     <>
       <section className="pl-5 pr-5">
         <PageTitle
-          title={`요즘 ${exp} ${job}에게\n필요한 역량은 뭘까?`}
+          title={`요즘 ${exp} ${
+            convertFromJobString(job).jobPosition
+          }에게\n필요한 역량은 뭘까?`}
           subTitle="AI가 최근 1개월 내 채용 공고를 바탕으로 중요한 직무 트렌드 역량을 알아냈어요"
           isBackButtonVisible={false}
         />
@@ -33,7 +36,9 @@ const RequiredSkillsSection: React.FC<RequiredSkillsSectionProps> = ({
                 </span>
               </div>
               <h2 className="flex-1 font-semibold text-lg leading-[140%] text-[#222222] whitespace-pre-line">
-                {`${job}\n트렌드 소프트 스킬 Top ${skills.length}`}
+                {`${
+                  convertFromJobString(job).jobPosition
+                }\n트렌드 소프트 스킬 Top ${skills.length}`}
               </h2>
             </div>
 
