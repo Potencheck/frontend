@@ -1,7 +1,7 @@
 import { JobCategory, UserInfo } from '@/hooks/useUserInfo';
 import { RequestReportPost } from '@/types/experience';
 
-function convertToJobString(
+export function convertToJobString(
   jobCategory: JobCategory | null,
   jobPosition: string | null,
 ): string {
@@ -31,7 +31,7 @@ function convertToJobString(
 /**
  * Experience를 exp 문자열로 변환하는 함수
  */
-function convertExpToString(exp: string | null): string {
+export function convertExpToString(exp: string | null): string {
   if (!exp) return '';
 
   // '신입'이 포함된 경우 'new' 반환
@@ -41,6 +41,25 @@ function convertExpToString(exp: string | null): string {
   // '경력'이 포함된 경우 'old' 반환
   else if (exp.includes('경력')) {
     return 'old';
+  }
+
+  // 기본값
+  return '';
+}
+
+/**
+ * exp 문자열을 Experience로 변환하는 함수
+ */
+export function convertStringToExp(exp: string | undefined): string {
+  if (!exp) return '';
+
+  // 'new'인 경우 '신입' 반환
+  if (exp === 'new') {
+    return '신입';
+  }
+  // 'old'인 경우 '경력' 반환
+  else if (exp === 'old') {
+    return '경력';
   }
 
   // 기본값

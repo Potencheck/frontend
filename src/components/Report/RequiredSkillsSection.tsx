@@ -1,11 +1,24 @@
 import PageTitle from '../PageTitle';
 
-const RequiredSkillsSection = () => {
+interface RequiredSkillsSectionProps {
+  job: string;
+  exp: string;
+  skills: {
+    name: string;
+    keyword: number;
+  }[];
+}
+
+const RequiredSkillsSection: React.FC<RequiredSkillsSectionProps> = ({
+  job,
+  exp,
+  skills,
+}) => {
   return (
     <>
       <section className="pl-5 pr-5">
         <PageTitle
-          title={`요즘 프로덕트 디자이너에게\n필요한 역량은 뭘까?`}
+          title={`요즘 ${exp} ${job}에게\n필요한 역량은 뭘까?`}
           subTitle="AI가 최근 1개월 내 채용 공고를 바탕으로 중요한 직무 트렌드 역량을 알아냈어요"
           isBackButtonVisible={false}
         />
@@ -20,46 +33,40 @@ const RequiredSkillsSection = () => {
                 </span>
               </div>
               <h2 className="flex-1 font-semibold text-lg leading-[140%] text-[#222222] whitespace-pre-line">
-                {`프로덕트 디자이너\n트렌드 소프트 스킬 Top 5`}
+                {`${job}\n트렌드 소프트 스킬 Top ${skills.length}`}
               </h2>
             </div>
 
             <div className="flex flex-col w-full">
-              {[
-                { number: '1️⃣', skill: '논리적인 설득력', importance: '90%' },
-                {
-                  number: '2️⃣',
-                  skill: '사용자 니즈 분석 능력',
-                  importance: '84%',
-                },
-                {
-                  number: '3️⃣',
-                  skill: '서비스 출시 경험',
-                  importance: '84%',
-                },
-                {
-                  number: '4️⃣',
-                  skill: 'A/B 테스트 개선 경험',
-                  importance: '84%',
-                },
-                { number: '5️⃣', skill: '논리적인 설득력', importance: '84%' },
-              ].map((item, index) => (
+              {skills.map((item, index) => (
                 <div
                   key={index}
                   className={`flex items-start p-4 w-full bg-[#F7F9FC] ${
                     index === 0 ? 'rounded-t-xl' : ''
-                  } ${index === 4 ? 'rounded-b-xl' : ''} ${
+                  } ${index === skills.length - 1 ? 'rounded-b-xl' : ''} ${
                     index > 0 ? 'border-t border-[#E5EAFB]' : ''
                   }`}
                 >
-                  <span className="w-5 h-5">{item.number}</span>
-                  <div className="ml-4">
-                    <p className="font-medium text-base leading-[150%] text-[#222222]">
-                      {item.skill}
-                    </p>
-                    <p className="font-normal text-sm leading-[150%] text-[#5F5F5F]">
-                      중요도 {item.importance}
-                    </p>
+                  <div className="flex flex-row items-center gap-4">
+                    <span className="w-5 h-5">
+                      {index === 0
+                        ? '1️⃣'
+                        : index === 1
+                        ? '2️⃣'
+                        : index === 2
+                        ? '3️⃣'
+                        : index === 3
+                        ? '4️⃣'
+                        : '5️⃣'}
+                    </span>
+                    <div className="flex flex-col gap-1">
+                      <p className="font-medium text-base leading-[150%] text-[#222222]">
+                        {item.name}
+                      </p>
+                      <p className="font-normal text-sm leading-[150%] text-[#5F5F5F]">
+                        중요도 {item.keyword}%
+                      </p>
+                    </div>
                   </div>
                 </div>
               ))}
