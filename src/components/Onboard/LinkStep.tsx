@@ -99,8 +99,8 @@ const LinkStep = ({ onBack, onNext }: LinkStepProps) => {
         <button
           className={`flex subtle2-medium rounded-full px-4 py-2 ${
             experienceType === ExpType.FILE
-              ? 'bg-text-secondary text-white border border-text-secondary'
-              : 'bg-white text-text-secondary border border-border-line'
+              ? 'bg-[#5f5f5f] text-white border border-[#5f5f5f'
+              : 'bg-white text-[#5f5f5f] border border-[#ededed]'
           }`}
           onClick={() => handleExpTypeSelect(ExpType.FILE)}
         >

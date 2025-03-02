@@ -10,56 +10,42 @@ type buttonProps = {
 
 // BottomButtonPanel 내부에서 사용
 const Button = ({ type, title, onClick, icon }: buttonProps) => {
-  const getButtonStyle = () => {
-    switch (type) {
-      case buttonTypeKeys.ACTIVE:
-        return {
-          backgroundColor: '#0b0b0b',
-          color: 'white',
-        };
-      case buttonTypeKeys.DISABLED:
-        return {
-          backgroundColor: '#a9a9a9',
-          color: 'white',
-        };
-      case buttonTypeKeys.LINK:
-        return {
-          backgroundColor: 'white',
-          color: '#222222',
-          border: '1px solid #ededed',
-        };
-      default:
-        return {};
-    }
-  };
+  switch (type) {
+    case buttonTypeKeys.ACTIVE:
+      return (
+        <button
+          className={`bg-[#0b0b0b] text-white flex items-center justify-center gap-2 w-full h-12 subtle2-semibold rounded-lg cursor-pointer`}
+          onClick={onClick}
+        >
+          {icon}
+          {title}
+        </button>
+      );
+    case buttonTypeKeys.DISABLED:
+      return (
+        <button
+          className={`bg-[#a9a9a9] text-white flex items-center justify-center gap-2 w-full h-12 subtle2-semibold rounded-lg cursor-pointer`}
+          onClick={onClick}
+        >
+          {icon}
+          {title}
+        </button>
+      );
 
-  const baseStyle = {
-    width: '100%',
-    height: '48px',
-    borderRadius: '8px',
-    cursor: 'pointer',
-    display: 'flex',
-    alignItems: 'center',
-    justifyContent: 'center',
-    gap: '8px',
-    fontWeight: 600,
-    fontSize: '14px',
-    lineHeight: '20px',
-  };
+    case buttonTypeKeys.LINK:
+      return (
+        <button
+          className={`bg-white border-[#ededed] border text-[#222222] flex items-center justify-center gap-2 w-full h-12 subtle2-semibold rounded-lg cursor-pointer`}
+          onClick={onClick}
+        >
+          {icon}
+          {title}
+        </button>
+      );
 
-  const combinedStyle = {
-    ...baseStyle,
-    ...getButtonStyle(),
-  };
-
-  return (
-    <>
-      <button style={combinedStyle} onClick={onClick}>
-        {icon}
-        {title}
-      </button>
-    </>
-  );
+    default:
+      return '';
+  }
 };
 
 export default Button;
