@@ -3,8 +3,40 @@ import plugin from 'tailwindcss/plugin';
 
 export default {
   content: ['./index.html', './src/**/*.{js,ts,jsx,tsx}'],
+  safelist: [
+    // 버튼 관련 클래스
+    'bg-button-abled',
+    'bg-button-disabled',
+    'bg-white',
+    'border-border-line',
+    'text-white',
+    'text-text-primary',
+    // 경험 타입 관련 클래스
+    'bg-text-secondary',
+    'text-white',
+    'border-text-secondary',
+    'bg-white',
+    'text-text-secondary',
+    'border-border-line',
+  ],
   theme: {
     extend: {
+      colors: {
+        // 커스텀 색상 변수 추가
+        'text-primary': '#222222',
+        'text-secondary': '#5f5f5f',
+        'text-placeholder': '#a9a9a9',
+        'border-chip': '#e3e3e3',
+        'border-line': '#ededed',
+        'button-abled': '#0b0b0b',
+        'button-disabled': '#a9a9a9',
+        'background-card': '#ffffff',
+        'background-screen': '#f1f3fa',
+        'background-field': '#f8f9fc',
+        dropdown: '#f8f8f8',
+        input: '#2e7cf6',
+        warning: '#f44141',
+      },
       fontFamily: {
         pretendard: ['"Pretendard"', 'sans-serif'],
       },
