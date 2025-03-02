@@ -12,8 +12,10 @@ import MyPersonalSkillsSection from '@/components/Report/MyPersonalSkillsSection
 import AIFeedbackSection from '@/components/Report/AIFeedbackSection';
 import ReportReactionSection from '@/components/Report/ReportReactionSection';
 import { convertToJobString, convertStringToExp } from '@/utils/experience';
+import { useNavigate } from 'react-router-dom';
 
 const ReportPage = ({ userId }: { userId: string | undefined }) => {
+  const navigate = useNavigate();
   const { data, isSuccess } = useGetReport(userId);
   const { userInfo } = useUserInfo();
   const [showToast, setShowToast] = useState(false);
@@ -50,6 +52,24 @@ const ReportPage = ({ userId }: { userId: string | undefined }) => {
     '직무 미지정';
   const userExp =
     convertStringToExp(data?.user?.exp) || userInfo.exp || '경력 미지정';
+
+  const handleButtonClick = () => {
+    if (userInfo.uuid) {
+      if (navigator.share) {
+        navigator
+          .share({
+            title: `[${document.title}]`,
+            text: `${userName}님이 자신의 역량 리포트를 전달했어요.\n나의 직무 역량도 확인해 보세요!\n${window.location.href}`,
+          })
+          .then(() => console.log('공유 성공'))
+          .catch((error) => console.error('공유 실패', error));
+      } else {
+        alert('이 브라우저는 공유 기능을 지원하지 않습니다.');
+      }
+    } else {
+      navigate('/');
+    }
+  };
 
   return (
     <div className="min-h-screen bg-[#F7F9FC]">
@@ -99,20 +119,8 @@ const ReportPage = ({ userId }: { userId: string | undefined }) => {
           <BottomButtonPanel>
             <Button
               type={buttonTypeKeys.ACTIVE}
-              title="리포트 공유하기"
-              onClick={() => {
-                if (navigator.share) {
-                  navigator
-                    .share({
-                      title: `[${document.title}]`,
-                      text: `${userName}님이 자신의 역량 리포트를 전달했어요.\n나의 직무 역량도 확인해 보세요!\n${window.location.href}`,
-                    })
-                    .then(() => console.log('공유 성공'))
-                    .catch((error) => console.error('공유 실패', error));
-                } else {
-                  alert('이 브라우저는 공유 기능을 지원하지 않습니다.');
-                }
-              }}
+              title={userInfo.uuid ? '리포트 공유하기' : '역량 리포트 만들기'}
+              onClick={handleButtonClick}
             />
           </BottomButtonPanel>
         </>
