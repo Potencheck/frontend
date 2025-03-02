@@ -13,11 +13,11 @@ const Button = ({ type, title, onClick, icon }: buttonProps) => {
   const getButtonStyle = () => {
     switch (type) {
       case buttonTypeKeys.ACTIVE:
-        return 'bg-button-abled text-white';
+        return 'bg-[#0b0b0b] text-white';
       case buttonTypeKeys.DISABLED:
-        return 'bg-button-disabled text-white';
+        return 'bg-[#a9a9a9] text-white';
       case buttonTypeKeys.LINK:
-        return 'bg-white border-border-line border text-text-primary';
+        return 'bg-white border-[#ededed] border text-[#222222]';
       default:
         return '';
     }
