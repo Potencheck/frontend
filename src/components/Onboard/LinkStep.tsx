@@ -109,7 +109,7 @@ const LinkStep = ({ onBack, onNext }: LinkStepProps) => {
         </button>
         {experienceType === ExpType.LINK ? (
           <button
-            className={`flex subtle2-medium rounded-full px-4 py-2 'bg-text-secondary border bg-text-secondary text-white border border-text-secondary
+            className={`flex subtle2-medium rounded-full px-4 py-2 bg-text-secondary text-white border border-text-secondary
             `}
             onClick={() => handleExpTypeSelect(ExpType.LINK)}
           >
@@ -118,7 +118,7 @@ const LinkStep = ({ onBack, onNext }: LinkStepProps) => {
           </button>
         ) : (
           <button
-            className={`flex subtle2-medium rounded-full px-4 py-2 'bg-text-secondary bg-white text-text-secondary border border-border-line'
+            className={`flex subtle2-medium rounded-full px-4 py-2 bg-white text-text-secondary border border-border-line
             `}
             onClick={() => handleExpTypeSelect(ExpType.LINK)}
           >
