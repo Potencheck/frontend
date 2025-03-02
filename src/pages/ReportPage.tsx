@@ -1,4 +1,6 @@
 import { useState } from 'react';
+import { useGetReport } from '@/hooks/api/useAPIs';
+import { useUserInfo } from '@/hooks/useUserInfo';
 import BottomButtonPanel from '@/components/BottomButtonPanel';
 import Button from '@/components/Button';
 import ReportCover from '@/components/Report/ReportCover';
@@ -8,9 +10,12 @@ import MyTrendSkillsSection from '@/components/Report/MyTrendSkillsSection';
 import { buttonTypeKeys } from '@/constants/common';
 import MyPersonalSkillsSection from '@/components/Report/MyPersonalSkillsSection';
 import AIFeedbackSection from '@/components/Report/AIFeedbackSection';
-import ReportReactionSection from '../components/Report/ReportReactionSection';
+import ReportReactionSection from '@/components/Report/ReportReactionSection';
+import { convertToJobString, convertStringToExp } from '@/utils/experience';
 
-const ReportPage = () => {
+const ReportPage = ({ userId }: { userId: string | undefined }) => {
+  const { data, isSuccess } = useGetReport(userId);
+  const { userInfo } = useUserInfo();
   const [showToast, setShowToast] = useState(false);
   const [toastOpacity, setToastOpacity] = useState(1);
   const [selectedButton, setSelectedButton] = useState<
@@ -38,47 +43,68 @@ const ReportPage = () => {
     }, 3000);
   };
 
+  const userName = data?.user?.name || userInfo.name || '사용자';
+  const userJob =
+    data?.user?.job ||
+    convertToJobString(userInfo.jobCategory, userInfo.jobPosition) ||
+    '직무 미지정';
+  const userExp =
+    convertStringToExp(data?.user?.exp) || userInfo.exp || '경력 미지정';
+
   return (
     <div className="min-h-screen bg-[#F7F9FC]">
-      <ReportCover
-        title="프로덕트 디자이너와 나의 관계는 떼려야 뗄 수 없는 천생연분 ❤️‍🔥"
-        description="민설님은 현재 프로덕트 디자이너가 요구하는 역량의 80% 이상 갖추고 있어요!"
-        imageSrc="https://velog.velcdn.com/images/hoyeonyy/post/da9f7819-4f11-4b09-a306-83f30163aa1d/image.png"
-      />
-      <RequiredSkillsSection />
-      <TrendSkillsSection />
-      <MyTrendSkillsSection />
-      <MyPersonalSkillsSection />
-      <AIFeedbackSection />
-
-      <div className="flex flex-col items-start px-5 gap-4 pb-[96px]">
-        <div className="flex flex-col items-center w-full py-8 gap-4 border-t border-[#E1E3E9]">
-          <h3 className="font-medium text-base leading-[150%] text-[#222222] text-center">
-            제공받은 리포트 결과는 어떤가요?
-          </h3>
-          <ReportReactionSection
-            handleFeedback={handleFeedback}
-            selectedButton={selectedButton}
+      {isSuccess && data && (
+        <>
+          <ReportCover
+            name={userName}
+            job={userJob}
+            careerFitness={data.career_fitness}
+            myTrendSkills={data.my_trend_skill || []}
+            trendSkills={data.trend_skill || []}
           />
-        </div>
-      </div>
+          <RequiredSkillsSection
+            job={userJob}
+            exp={userExp}
+            skills={data.trend_jd || []}
+          />
+          <TrendSkillsSection job={userJob} trends={data.trend_skill || []} />
+          <MyTrendSkillsSection myTrends={data.my_trend_skill || []} />
+          <MyPersonalSkillsSection personalSkills={data.personal_skill || []} />
+          <AIFeedbackSection
+            summary={data.ai_summary || ''}
+            review={data.ai_review || ''}
+          />
 
-      {showToast && (
-        <div
-          className={`fixed bottom-20 left-1/2 transform -translate-x-1/2 bg-black text-white px-4 py-2 rounded-lg transition-opacity duration-300 ease-out`}
-          style={{ opacity: toastOpacity }}
-        >
-          피드백을 보냈어요!
-        </div>
+          <div className="flex flex-col items-start px-5 gap-4 pb-[96px]">
+            <div className="flex flex-col items-center w-full py-8 gap-4 border-t border-[#E1E3E9]">
+              <h3 className="font-medium text-base leading-[150%] text-[#222222] text-center">
+                제공받은 리포트 결과는 어떤가요?
+              </h3>
+              <ReportReactionSection
+                handleFeedback={handleFeedback}
+                selectedButton={selectedButton}
+              />
+            </div>
+          </div>
+
+          {showToast && (
+            <div
+              className={`fixed bottom-20 left-1/2 transform -translate-x-1/2 bg-black text-white px-4 py-2 rounded-lg transition-opacity duration-300 ease-out`}
+              style={{ opacity: toastOpacity }}
+            >
+              피드백을 보냈어요!
+            </div>
+          )}
+
+          <BottomButtonPanel>
+            <Button
+              type={buttonTypeKeys.ACTIVE}
+              title="리포트 공유하기"
+              onClick={() => {}}
+            />
+          </BottomButtonPanel>
+        </>
       )}
-
-      <BottomButtonPanel>
-        <Button
-          type={buttonTypeKeys.ACTIVE}
-          title="리포트 공유하기"
-          onClick={() => {}}
-        />
-      </BottomButtonPanel>
     </div>
   );
 };

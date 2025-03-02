@@ -5,10 +5,24 @@ import PageTitle from '@/components/PageTitle';
 import { buttonTypeKeys } from '@/constants/common';
 import { useUserInfo } from '@/hooks/useUserInfo';
 import { useNavigate } from 'react-router-dom';
+import { useRequestReport } from '@/hooks/api/useAPIs';
 
 const AnalyzeSuccessPage = () => {
   const { userInfo } = useUserInfo();
   const navigate = useNavigate();
+  const { mutate: requestReport } = useRequestReport({
+    onSuccess: (data) => {
+      navigate(`/report/${data.id}`);
+    },
+    onError: () => {
+      alert('리포트 요청에 실패했습니다. 다시 시도해주세요.');
+    },
+  });
+
+  const handleReportClick = () => {
+    requestReport(userInfo);
+  };
+
   return (
     <>
       <div className="w-full h-screen overflow-y-hidden bg-background-card absolute inset-0 flex flex-col items-center">
@@ -47,7 +61,7 @@ const AnalyzeSuccessPage = () => {
           <Button
             type={buttonTypeKeys.ACTIVE}
             title="리포트 확인하기"
-            onClick={() => navigate('/report')}
+            onClick={handleReportClick}
           />
         </BottomButtonPanel>
       </div>

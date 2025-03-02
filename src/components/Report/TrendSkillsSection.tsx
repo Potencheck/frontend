@@ -1,4 +1,14 @@
-const TrendSkillsSection = () => {
+import React from 'react';
+
+interface TrendSkillsSectionProps {
+  job: string;
+  trends: string[];
+}
+
+const TrendSkillsSection: React.FC<TrendSkillsSectionProps> = ({
+  job,
+  trends,
+}) => {
   return (
     <>
       <section className="px-5 py-5">
@@ -10,25 +20,20 @@ const TrendSkillsSection = () => {
               </span>
             </div>
             <h2 className="flex-1 font-semibold text-lg leading-[140%] text-[#222222] whitespace-pre-line">
-              {`프로덕트 디자이너\n트렌드 기술 역량`}
+              {`${job}\n트렌드 기술 역량`}
             </h2>
           </div>
           <div className="flex flex-wrap gap-x-2 gap-y-3">
-            <div className="flex justify-center items-center py-2 px-4 bg-[#F7F9FC] rounded-[20px]">
-              <span className="font-medium text-sm leading-[150%] text-[#222222]">
-                # Figma
-              </span>
-            </div>
-            <div className="flex justify-center items-center py-2 px-4 bg-[#F7F9FC] rounded-[20px]">
-              <span className="font-medium text-sm leading-[150%] text-[#222222]">
-                # Figma
-              </span>
-            </div>
-            <div className="flex justify-center items-center py-2 px-4 bg-[#F7F9FC] rounded-[20px]">
-              <span className="font-medium text-sm leading-[150%] text-[#222222]">
-                # Figma
-              </span>
-            </div>
+            {trends.map((trend, index) => (
+              <div
+                key={index}
+                className="flex justify-center items-center py-2 px-4 bg-[#F7F9FC] rounded-[20px]"
+              >
+                <span className="font-medium text-sm leading-[150%] text-[#222222]">
+                  {`# ${trend}`}
+                </span>
+              </div>
+            ))}
           </div>
         </div>
       </section>
