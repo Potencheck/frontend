@@ -53,7 +53,7 @@ const CategoryCard = ({
               key={index}
               {...item}
               category={category}
-              onEditClick={onEditClick}
+              onClick={onEditClick}
             />
           ))}
 
