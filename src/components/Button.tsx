@@ -13,21 +13,48 @@ const Button = ({ type, title, onClick, icon }: buttonProps) => {
   const getButtonStyle = () => {
     switch (type) {
       case buttonTypeKeys.ACTIVE:
-        return 'bg-button-abled text-white';
+        return {
+          backgroundColor: '#0b0b0b',
+          color: 'white',
+        };
       case buttonTypeKeys.DISABLED:
-        return 'bg-button-disabled text-white';
+        return {
+          backgroundColor: '#a9a9a9',
+          color: 'white',
+        };
       case buttonTypeKeys.LINK:
-        return 'bg-white border-border-line border text-text-primary';
+        return {
+          backgroundColor: 'white',
+          color: '#222222',
+          border: '1px solid #ededed',
+        };
       default:
-        return '';
+        return {};
     }
   };
+
+  const baseStyle = {
+    width: '100%',
+    height: '48px',
+    borderRadius: '8px',
+    cursor: 'pointer',
+    display: 'flex',
+    alignItems: 'center',
+    justifyContent: 'center',
+    gap: '8px',
+    fontWeight: 600,
+    fontSize: '14px',
+    lineHeight: '20px',
+  };
+
+  const combinedStyle = {
+    ...baseStyle,
+    ...getButtonStyle(),
+  };
+
   return (
     <>
-      <button
-        className={`${getButtonStyle()} flex items-center justify-center gap-2 w-full h-12 subtle2-semibold rounded-lg cursor-pointer`}
-        onClick={onClick}
-      >
+      <button style={combinedStyle} onClick={onClick}>
         {icon}
         {title}
       </button>
