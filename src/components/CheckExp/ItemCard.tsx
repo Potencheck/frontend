@@ -42,10 +42,9 @@ const ItemCard = ({
               {subtitle || company}
             </div>
           )}
-
-          {description && (
+          {category !== 'skill' && (
             <div className="p-3 rounded-lg bg-background-field body3-regular text-text-secondary mt-1">
-              {description}
+              {description || '경험에 대한 구체적인 설명을 추가해 보세요'}
             </div>
           )}
         </div>
