@@ -37,7 +37,9 @@ export const ResumeProvider = ({ children }: { children: ReactNode }) => {
       // API 응답 구조에 맞게 데이터 변환
       return resumeAnalysisData.career.map((item: ItemData) => {
         const result: ItemData = {
-          id: item.id || Date.now().toString(),
+          id:
+            item.id ||
+            `${Date.now()}-${Math.random().toString(36).substring(2, 9)}`,
         };
 
         // 각 속성이 존재하고 빈 문자열이 아닌 경우에만 할당
@@ -57,7 +59,9 @@ export const ResumeProvider = ({ children }: { children: ReactNode }) => {
       // API 응답 구조에 맞게 데이터 변환
       return resumeAnalysisData.activities.map((item: ItemData) => {
         const result: ItemData = {
-          id: item.id || Date.now().toString(),
+          id:
+            item.id ||
+            `${Date.now()}-${Math.random().toString(36).substring(2, 9)}`,
         };
         if (item.name !== undefined && item.name !== '')
           result.name = item.name;
