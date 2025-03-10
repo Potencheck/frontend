@@ -21,7 +21,7 @@ const enum FunnelStep {
 const OnboardingPage = () => {
   const navigate = useNavigate();
   const [currentStep, setCurrentStep] = useState<FunnelStep>(FunnelStep.NAME);
-  const { userInfo, analyzeUserResume } = useUserInfo();
+  const { userInfo } = useUserInfo();
   const handleOnGoBack = () => {
     if (currentStep === FunnelStep.NAME) navigate('/');
     else setCurrentStep(currentStep - 1);
@@ -32,10 +32,6 @@ const OnboardingPage = () => {
       // 명시적으로 다음 단계가 지정된 경우
       setCurrentStep(nextStep);
     } else {
-      // 기본 다음 단계로 이동
-      if (currentStep === FunnelStep.LINK) {
-        analyzeUserResume();
-      }
       setCurrentStep(currentStep + 1);
     }
   };
@@ -69,6 +65,7 @@ const OnboardingPage = () => {
             subtitle={`직무 역량을 분석하기 위한\n경력, 직무 활동, 자격증 및 스킬을 추출하고 있어요`}
             onLoadingComplete={handleOnNext}
             animationData={animationData}
+            totalDuration={5000}
           />
         );
       case FunnelStep.CHECK:
