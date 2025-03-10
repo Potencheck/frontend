@@ -13,6 +13,7 @@ import { CategoryType, ItemData, ViewType } from '@/types/experience';
 import { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import animationData from '@/assets/loading_report.json';
+import { useUserInfo } from '@/hooks/useUserInfo';
 
 const formComponents = {
   experience: ExperienceForm,
@@ -23,13 +24,17 @@ const formComponents = {
 const CheckExperiencePage = () => {
   const navigate = useNavigate();
   const { experience, activities, skills, requestUserReport } = useResume();
-
+  const { userInfo, updateUserInfo } = useUserInfo();
+  const isThereFileOrLink = !!(
+    userInfo.experience?.file || userInfo.experience?.link
+  );
   const [currentView, setCurrentView] = useState<ViewType>('main');
   const [editItemId, setEditItemId] = useState<string | null>(null);
   const [isModal, setIsModal] = useState(false);
+  const [isCompleteModal, setIsCompleteModal] = useState(true);
   const [isLoading, setIsLoading] = useState(false);
-  const isValid = experience.length || activities.length || skills.length;
-
+  const isValid =
+    experience.length > 0 || activities.length > 0 || skills.length > 0;
   // 현재 편집 중인 항목 찾기
   const findEditItem = (
     category: CategoryType,
@@ -105,17 +110,37 @@ const CheckExperiencePage = () => {
               <Modal
                 isOpen={isModal}
                 onClose={() => setIsModal(false)}
-                onPrimaryAction={() => navigate('/')}
-                title="직무 경험 추출을 그만두시겠어요?"
+                onPrimaryAction={() => {
+                  navigate('/');
+                  updateUserInfo('experience', { file: null, link: '' });
+                }}
+                title={`직무 경험 ${
+                  isThereFileOrLink ? '추가' : '입력'
+                }을 그만두시겠어요?`}
                 primaryActionText="그만두기"
                 secondaryActionText="취소"
               >
-                그만두기를 클릭하시면 추출된 내용이 모두 사라져요
+                {`그만두기를 클릭하시면 ${
+                  isThereFileOrLink ? '추가' : '입력'
+                }된 내용이 모두 사라져요`}
+              </Modal>
+            )}
+            {isCompleteModal && isThereFileOrLink && (
+              <Modal
+                isOpen={isCompleteModal}
+                onClose={() => setIsCompleteModal(false)}
+                onPrimaryAction={handleNext}
+                title="AI가 직무 경험 추출을 끝냈어요!"
+                primaryActionText="바로 분석하기"
+                secondaryActionText="경험 추가하기"
+              >
+                더 보완하고 싶다며 경험을 추가하거나, 바로 분석을 진행할 수
+                있어요!
               </Modal>
             )}
             <PageTitle
               onGoBack={() => setIsModal(true)}
-              title="직무 경험 입력"
+              title={`직무 경험 ${isThereFileOrLink ? '추가' : '입력'}`}
               subTitle="경험을 많이 추가할수록 정확한 결과를 받을 수 있어요"
               bgColor="background-screen"
             />
@@ -149,9 +174,15 @@ const CheckExperiencePage = () => {
 
           <BottomButtonPanel>
             <Button
-              type={isValid ? buttonTypeKeys.ACTIVE : buttonTypeKeys.DISABLED}
+              type={
+                !isThereFileOrLink && !isValid
+                  ? buttonTypeKeys.DISABLED
+                  : buttonTypeKeys.ACTIVE
+              }
               title="완료"
-              onClick={isValid ? handleNext : undefined}
+              {...(isValid || !isThereFileOrLink
+                ? { onClick: handleNext }
+                : {})}
             />
           </BottomButtonPanel>
         </div>
