@@ -1,4 +1,3 @@
-import ExperienceStep from '@/components/Onboard/ExperienceStep';
 import JobStep from '@/components/Onboard/JobStep';
 import LinkStep from '@/components/Onboard/LinkStep';
 import NameStep from '@/components/Onboard/NameStep';
@@ -13,10 +12,9 @@ import animationData from '@/assets/loading_paper.json';
 const enum FunnelStep {
   NAME = 1,
   JOB = 2,
-  EXPERIENCE = 3,
-  LINK = 4,
-  LOAD = 5,
-  CHECK = 6,
+  LINK = 3,
+  LOAD = 4,
+  CHECK = 5,
 }
 const OnboardingPage = () => {
   const navigate = useNavigate();
@@ -41,21 +39,6 @@ const OnboardingPage = () => {
         return <NameStep onBack={handleOnGoBack} onNext={handleOnNext} />;
       case FunnelStep.JOB:
         return <JobStep onBack={handleOnGoBack} onNext={handleOnNext} />;
-      case FunnelStep.EXPERIENCE:
-        return (
-          <ExperienceStep
-            onBack={handleOnGoBack}
-            onNext={(option) => {
-              // 선택한 옵션에 따라 다른 단계로 이동
-              if (option === 'file/link') {
-                handleOnNext(FunnelStep.LINK);
-              } else {
-                // 다른 옵션 선택 시
-                handleOnNext(FunnelStep.CHECK);
-              }
-            }}
-          />
-        );
       case FunnelStep.LINK:
         return <LinkStep onBack={handleOnGoBack} onNext={handleOnNext} />;
       case FunnelStep.LOAD:
