@@ -1,5 +1,9 @@
 import { JobCategory, UserInfo } from '@/hooks/useUserInfo';
-import { RequestReportPost } from '@/types/experience';
+import {
+  ItemData,
+  RequestReportPostUser,
+  RequestRepostPostCareer,
+} from '@/types/experience';
 
 export function convertToJobString(
   jobCategory: JobCategory | null,
@@ -69,13 +73,30 @@ export function convertStringToExp(exp: string | undefined): string {
 /**
  * UserInfo를 ConvertedUserData로 변환하는 함수
  */
-export function convertUserData(userInfo: UserInfo): RequestReportPost {
+export function convertUserData(userInfo: UserInfo): RequestReportPostUser {
   return {
-    user: {
-      name: userInfo.name || '',
-      job: convertToJobString(userInfo.jobCategory, userInfo.jobPosition),
-      exp: convertExpToString(userInfo.exp),
-    },
+    name: userInfo.name || '',
+    job: convertToJobString(userInfo.jobCategory, userInfo.jobPosition),
+    exp: convertExpToString(userInfo.exp),
+  };
+}
+
+export function convertUserCareerData({
+  userInfo,
+}: {
+  userInfo: {
+    career: ItemData[];
+    activities: ItemData[];
+    certifications: ItemData[];
+  };
+}): RequestRepostPostCareer {
+  return {
+    career: userInfo.career,
+    activities: userInfo.activities,
+    certifications:
+      userInfo.certifications
+        .map((skill) => skill.name)
+        .filter((name): name is string => name !== null) ?? [],
   };
 }
 
