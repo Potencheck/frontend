@@ -18,6 +18,7 @@ const ExperienceForm = ({ onBack, editItem }: ExperienceFormProps) => {
   const [formData, setFormData] = useState<ItemData>(
     editItem || {
       id: Date.now().toString(),
+      name: '',
       job: '',
       company: '',
       description: '',
