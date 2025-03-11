@@ -76,14 +76,18 @@ const LinkStep = ({ onBack, onNext }: LinkStepProps) => {
   };
 
   const handleOnNext = () => {
-    updateUserInfo('experience', experience);
+    const newExperience = experience.file
+      ? { file: experience.file }
+      : { link: experience.link };
+    updateUserInfo('experience', newExperience);
     onNext();
   };
 
   useEffect(() => {
     const urlRegex =
       /^(https?:\/\/)?(www\.)?[-a-zA-Z0-9@:%._+~#=]{1,256}\.[a-zA-Z0-9()]{1,6}\b([-a-zA-Z0-9()@:%_+.~#?&//=]*)$/;
-    if (experience.file || urlRegex.test(experience.link)) setIsValid(true);
+    if (experience.file || urlRegex.test(String(experience.link)))
+      setIsValid(true);
     else setIsValid(false);
   }, [experience]);
 
