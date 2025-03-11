@@ -59,7 +59,7 @@ const Dropdown = ({
     setIsOpen(false);
   };
   return (
-    <div className="w-full flex flex-col">
+    <div className="w-full flex flex-col cursor-pointer">
       {/* 드롭다운 제목 (있는 경우에만 표시) */}
       {title && (
         <div className="w-full relative flex flex-row items-center justify-start px-1 py-1.5 box-border text-left body-3 text-[#222]">
@@ -75,7 +75,7 @@ const Dropdown = ({
         <div className="w-full relative rounded-lg bg-white border border-border-line box-border h-11 flex flex-row items-center justify-center px-4 py-2.5 pl-4 text-left subtle2-regular text-[#656565]">
           <div className="flex-1 h-5 flex flex-row items-center justify-between">
             <input
-              className="w-full relative leading-5 outline-none bg-white"
+              className="w-full relative leading-5 outline-none bg-white cursor-pointer"
               value={value ?? ''}
               placeholder={placeholder}
               readOnly
