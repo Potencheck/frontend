@@ -30,45 +30,23 @@ export const ResumeProvider = ({ children }: { children: ReactNode }) => {
   });
 
   const requestUserReport = () => {
-    requestReport(userInfo);
+    const newUserInfo = {
+      user_json: userInfo,
+      career_data: {
+        career: experience,
+        activities: activities,
+        certifications:
+          skills
+            .map((skill) => skill.name)
+            .filter((name): name is string => name !== null) ?? [],
+      },
+    };
+    requestReport(newUserInfo);
   };
   const [experience, setExperience] = useState<ItemData[]>(() => {
-    if (resumeAnalysisData?.career) {
-      // API 응답 구조에 맞게 데이터 변환
-      return resumeAnalysisData.career.map((item: ItemData) => {
-        const result: ItemData = {
-          id:
-            item.id ||
-            `${Date.now()}-${Math.random().toString(36).substring(2, 9)}`,
-        };
-
-        // 각 속성이 존재하고 빈 문자열이 아닌 경우에만 할당
-        if (item.job !== undefined && item.job !== '') result.job = item.job;
-        if (item.company !== undefined && item.company !== '')
-          result.company = item.company;
-        if (item.description !== undefined && item.description !== '')
-          result.description = item.description;
-
-        return result;
-      });
-    }
     return [];
   });
   const [activities, setActivities] = useState<ItemData[]>(() => {
-    if (resumeAnalysisData?.activities) {
-      // API 응답 구조에 맞게 데이터 변환
-      return resumeAnalysisData.activities.map((item: ItemData) => {
-        const result: ItemData = {
-          id:
-            item.id ||
-            `${Date.now()}-${Math.random().toString(36).substring(2, 9)}`,
-        };
-        if (item.name !== undefined && item.name !== '')
-          result.name = item.name;
-
-        return result;
-      });
-    }
     return [];
   });
   const [skills, setSkills] = useState<ItemData[]>(() => {

@@ -10,8 +10,8 @@ export enum JobCategory {
 
 export interface Experience {
   // PDF 파일인 경우
-  file: File | null;
-  link: string;
+  file?: File | null;
+  link?: string;
   // 직접 작성한 경우
   content?: {
     description: string;
@@ -67,7 +67,6 @@ export const UserInfoProvider = ({ children }: { children: ReactNode }) => {
     useState<ResumePostResponse | null>(null);
   const { mutate: analyzeResume } = usePostResume({
     onSuccess: (data) => {
-      console.log(data);
       setResumeAnalysisData(data);
     },
   });

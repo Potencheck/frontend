@@ -34,8 +34,10 @@ const JobStep = ({ onBack, onNext }: JobStepProps) => {
 
   // 유효성 검사
   useEffect(() => {
-    setIsValid(!!userInfo.jobCategory && !!userInfo.jobPosition);
-  }, [userInfo.jobCategory, userInfo.jobPosition]);
+    setIsValid(
+      !!userInfo.jobCategory && !!userInfo.jobPosition && !!userInfo.exp,
+    );
+  }, [userInfo.jobCategory, userInfo.jobPosition, userInfo.exp]);
 
   const handleSubmit = () => {
     if (isValid) {
