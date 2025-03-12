@@ -90,7 +90,14 @@ export const SkillForm = ({ onBack }: SkillFormProps) => {
           ) : (
             <div className="flex flex-wrap gap-2 ">
               {selectedCertList.map((cert) => (
-                <CertTag name={cert} onDelete={() => setSelectedCertList([])} />
+                <CertTag
+                  name={cert}
+                  onDelete={(name: string) =>
+                    setSelectedCertList(
+                      selectedCertList.filter((cert) => cert !== name),
+                    )
+                  }
+                />
               ))}
             </div>
           )}

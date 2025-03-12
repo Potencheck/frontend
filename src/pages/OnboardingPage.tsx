@@ -1,4 +1,3 @@
-import ExperienceStep from '@/components/Onboard/ExperienceStep';
 import JobStep from '@/components/Onboard/JobStep';
 import LinkStep from '@/components/Onboard/LinkStep';
 import NameStep from '@/components/Onboard/NameStep';
@@ -13,15 +12,14 @@ import animationData from '@/assets/loading_paper.json';
 const enum FunnelStep {
   NAME = 1,
   JOB = 2,
-  EXPERIENCE = 3,
-  LINK = 4,
-  LOAD = 5,
-  CHECK = 6,
+  LINK = 3,
+  LOAD = 4,
+  CHECK = 5,
 }
 const OnboardingPage = () => {
   const navigate = useNavigate();
   const [currentStep, setCurrentStep] = useState<FunnelStep>(FunnelStep.NAME);
-  const { userInfo, analyzeUserResume } = useUserInfo();
+  const { userInfo } = useUserInfo();
   const handleOnGoBack = () => {
     if (currentStep === FunnelStep.NAME) navigate('/');
     else setCurrentStep(currentStep - 1);
@@ -32,10 +30,6 @@ const OnboardingPage = () => {
       // 명시적으로 다음 단계가 지정된 경우
       setCurrentStep(nextStep);
     } else {
-      // 기본 다음 단계로 이동
-      if (currentStep === FunnelStep.LINK) {
-        analyzeUserResume();
-      }
       setCurrentStep(currentStep + 1);
     }
   };
@@ -45,21 +39,6 @@ const OnboardingPage = () => {
         return <NameStep onBack={handleOnGoBack} onNext={handleOnNext} />;
       case FunnelStep.JOB:
         return <JobStep onBack={handleOnGoBack} onNext={handleOnNext} />;
-      case FunnelStep.EXPERIENCE:
-        return (
-          <ExperienceStep
-            onBack={handleOnGoBack}
-            onNext={(option) => {
-              // 선택한 옵션에 따라 다른 단계로 이동
-              if (option === 'file/link') {
-                handleOnNext(FunnelStep.LINK);
-              } else {
-                // 다른 옵션 선택 시
-                handleOnNext(FunnelStep.CHECK);
-              }
-            }}
-          />
-        );
       case FunnelStep.LINK:
         return <LinkStep onBack={handleOnGoBack} onNext={handleOnNext} />;
       case FunnelStep.LOAD:
@@ -69,6 +48,7 @@ const OnboardingPage = () => {
             subtitle={`직무 역량을 분석하기 위한\n경력, 직무 활동, 자격증 및 스킬을 추출하고 있어요`}
             onLoadingComplete={handleOnNext}
             animationData={animationData}
+            totalDuration={5000}
           />
         );
       case FunnelStep.CHECK:

@@ -76,14 +76,18 @@ const LinkStep = ({ onBack, onNext }: LinkStepProps) => {
   };
 
   const handleOnNext = () => {
-    updateUserInfo('experience', experience);
+    const newExperience = experience.file
+      ? { file: experience.file }
+      : { link: experience.link };
+    updateUserInfo('experience', newExperience);
     onNext();
   };
 
   useEffect(() => {
     const urlRegex =
       /^(https?:\/\/)?(www\.)?[-a-zA-Z0-9@:%._+~#=]{1,256}\.[a-zA-Z0-9()]{1,6}\b([-a-zA-Z0-9()@:%_+.~#?&//=]*)$/;
-    if (experience.file || urlRegex.test(experience.link)) setIsValid(true);
+    if (experience.file || urlRegex.test(String(experience.link)))
+      setIsValid(true);
     else setIsValid(false);
   }, [experience]);
 
@@ -99,8 +103,8 @@ const LinkStep = ({ onBack, onNext }: LinkStepProps) => {
         <button
           className={`flex subtle2-medium rounded-full px-4 py-2 ${
             experienceType === ExpType.FILE
-              ? 'bg-text-secondary text-white border border-text-secondary'
-              : 'bg-white text-text-secondary border border-border-line'
+              ? 'bg-[#5f5f5f] text-white border border-[#5f5f5f'
+              : 'bg-white text-[#5f5f5f] border border-[#ededed]'
           }`}
           onClick={() => handleExpTypeSelect(ExpType.FILE)}
         >
@@ -108,11 +112,17 @@ const LinkStep = ({ onBack, onNext }: LinkStepProps) => {
           파일 첨부
         </button>
         <button
-          className={`flex subtle2-medium rounded-full px-4 py-2 ${
-            experienceType === ExpType.LINK
-              ? 'bg-text-secondary text-white border border-text-secondary'
-              : 'bg-white text-text-secondary border border-border-line'
-          }`}
+          style={{
+            backgroundColor:
+              experienceType === ExpType.LINK ? '#5f5f5f' : 'white',
+            color: experienceType === ExpType.LINK ? 'white' : '#5f5f5f',
+            border:
+              experienceType === ExpType.LINK
+                ? '1px solid #5f5f5f'
+                : '1px solid #ededed',
+            // 다른 스타일들
+          }}
+          className="flex subtle2-medium rounded-full px-4 py-2"
           onClick={() => handleExpTypeSelect(ExpType.LINK)}
         >
           {experienceType === ExpType.LINK && <CheckIcon />}

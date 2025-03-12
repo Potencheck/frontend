@@ -8,6 +8,7 @@ interface LoadingScreenProps {
   subtitle: string;
   isAnalyze?: boolean;
   animationData: object;
+  totalDuration?: number;
 }
 
 const LoadingScreen = ({
@@ -17,12 +18,12 @@ const LoadingScreen = ({
   subtitle,
   isAnalyze,
   animationData,
+  totalDuration = 20000,
 }: LoadingScreenProps) => {
   const [progress, setProgress] = useState<number>(0);
   const navigate = useNavigate();
 
   useEffect(() => {
-    const totalDuration = 20000; // 20초 (밀리초)
     const interval = 100; // 업데이트 간격 (밀리초)
     const incrementPerInterval = 100 / (totalDuration / interval);
 

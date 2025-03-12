@@ -1,5 +1,9 @@
 import { getReport, postRequestReport, postResume } from '@/api';
-import { RequestPostResponse, ResumePostResponse } from '@/types/experience';
+import {
+  RequestPostResponse,
+  RequestRepostPostCareer,
+  ResumePostResponse,
+} from '@/types/experience';
 import {
   useMutation,
   UseMutationOptions,
@@ -19,11 +23,21 @@ export const usePostResume = (
 
 //202 리포트 생성 커스텀 훅
 export const useRequestReport = (
-  options?: UseMutationOptions<RequestPostResponse, Error, UserInfo>,
+  options?: UseMutationOptions<
+    RequestPostResponse,
+    Error,
+    {
+      user_json: UserInfo;
+      career_data: RequestRepostPostCareer;
+    }
+  >,
 ) => {
   return useMutation({
     ...options,
-    mutationFn: async (data: UserInfo) => postRequestReport(data),
+    mutationFn: async (data: {
+      user_json: UserInfo;
+      career_data: RequestRepostPostCareer;
+    }) => postRequestReport(data),
   });
 };
 

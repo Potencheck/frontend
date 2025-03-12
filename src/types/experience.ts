@@ -1,9 +1,11 @@
+import { UserInfo } from '@/hooks/useUserInfo';
+
 export interface ItemData {
   id: string | null;
   job?: string | null;
   company?: string | null;
   description?: string | null;
-  name?: string | null;
+  name: string | null;
   subtitle?: string | null;
 }
 
@@ -23,10 +25,19 @@ export type RequestPostResponse = {
   id: string;
 };
 
+export type RequestReportPostUser = {
+  name: string;
+  job: string;
+  exp: string;
+};
+
+export type RequestRepostPostCareer = {
+  career: ItemData[];
+  activities: ItemData[];
+  certifications: string[];
+};
+
 export type RequestReportPost = {
-  user: {
-    name: string;
-    job: string;
-    exp: string;
-  };
+  user_json: UserInfo;
+  career_data: RequestRepostPostCareer;
 };
