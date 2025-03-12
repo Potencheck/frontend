@@ -6,10 +6,12 @@ interface PersonalSkill {
 }
 
 interface MyPersonalSkillsSectionProps {
+  name: string;
   personalSkills: PersonalSkill[];
 }
 
 const MyPersonalSkillsSection = ({
+  name,
   personalSkills,
 }: MyPersonalSkillsSectionProps) => {
   return (
@@ -17,7 +19,7 @@ const MyPersonalSkillsSection = ({
       <PageTitle
         isBackButtonVisible={false}
         title={`차별점이라고 할 수 있는\n나만의 퍼스널 역량은?`}
-        subTitle="치열한 취업 시장에서 빛날 수 있는 민설님만의 강점을 분석했어요"
+        subTitle={`치열한 취업 시장에서 빛날 수 있는 ${name}님만의 강점을 분석했어요`}
       />
       <div className="flex flex-wrap gap-2">
         {personalSkills.map((skill, index) => (

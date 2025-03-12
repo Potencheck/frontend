@@ -89,7 +89,10 @@ const ReportPage = ({ userId }: { userId: string | undefined }) => {
           />
           <TrendSkillsSection job={userJob} trends={data.trend_skill || []} />
           <MyTrendSkillsSection myTrends={data.my_trend_skill || []} />
-          <MyPersonalSkillsSection personalSkills={data.personal_skill || []} />
+          <MyPersonalSkillsSection
+            name={userName}
+            personalSkills={data.personal_skill || []}
+          />
           <AIFeedbackSection
             summary={data.ai_summary || ''}
             review={data.ai_review || ''}
